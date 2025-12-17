@@ -1,0 +1,198 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:group.header",
+  "sections": {
+    "announcement_JntbHB": {
+      "type": "announcement",
+      "blocks": {
+        "promo_message_UGp9XE": {
+          "type": "promo_message",
+          "settings": {
+            "message": "<p>Promotional message goes here. <a href=\"#\" title=\"#\">Click here</a></p>"
+          }
+        },
+        "promo_message_zjLN7b": {
+          "type": "promo_message",
+          "settings": {
+            "message": "<p>Promotional message goes here that would wrap to two lines if a long message</p>"
+          }
+        }
+      },
+      "block_order": [
+        "promo_message_UGp9XE",
+        "promo_message_zjLN7b"
+      ],
+      "name": "t:section.announcement.name",
+      "settings": {
+        "color_scheme": "scheme-f16b70f4-68de-4556-b3a9-3df6370d7ae8",
+        "auto_play": true,
+        "auto_play_interval": 5
+      }
+    },
+    "header_rjaTWR": {
+      "type": "header",
+      "blocks": {
+        "megamenu_ENzqVb": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Women's",
+            "menu_url": "shopify://collections/womens",
+            "menu_heading": ""
+          },
+          "blocks": {
+            "group_navigation_HmWmTx": {
+              "type": "_group-navigation",
+              "name": "t:block.group_navigation.preset.navigation_group",
+              "settings": {
+                "columns": 4,
+                "columns_mobile": 1,
+                "group_title": ""
+              },
+              "blocks": {
+                "navigation_menu_jcqPY6": {
+                  "type": "navigation-menu",
+                  "settings": {
+                    "nav_heading": "Footwear",
+                    "menu": "womens-footwear"
+                  },
+                  "blocks": {}
+                },
+                "navigation_menu_NHGCj6": {
+                  "type": "navigation-menu",
+                  "settings": {
+                    "nav_heading": "Clothing",
+                    "menu": "womens-clothing"
+                  },
+                  "blocks": {}
+                },
+                "navigation_menu_Dgcn8y": {
+                  "type": "navigation-menu",
+                  "name": "t:block.navigation_menu.preset.navigation_menu",
+                  "settings": {
+                    "nav_heading": "Accessories",
+                    "menu": "womens-accessories"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "navigation_menu_jcqPY6",
+                "navigation_menu_NHGCj6",
+                "navigation_menu_Dgcn8y"
+              ]
+            }
+          },
+          "block_order": [
+            "group_navigation_HmWmTx"
+          ]
+        },
+        "megamenu_GGhMbe": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Men's",
+            "menu_url": "shopify://collections/mens",
+            "menu_heading": ""
+          },
+          "blocks": {
+            "group_navigation_gzbtXD": {
+              "type": "_group-navigation",
+              "name": "t:block.group_navigation.preset.navigation_group",
+              "settings": {
+                "columns": 4,
+                "columns_mobile": 1,
+                "group_title": ""
+              },
+              "blocks": {
+                "navigation_menu_kez9dA": {
+                  "type": "navigation-menu",
+                  "name": "t:block.navigation_menu.preset.navigation_menu",
+                  "settings": {
+                    "nav_heading": "Footwear",
+                    "menu": "mens-footwear"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "navigation_menu_kez9dA"
+              ]
+            }
+          },
+          "block_order": [
+            "group_navigation_gzbtXD"
+          ]
+        },
+        "megamenu_zz9PGE": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Kid's",
+            "menu_url": "shopify://collections/kids",
+            "menu_heading": "Kid's"
+          },
+          "blocks": {}
+        },
+        "megamenu_wznfD6": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Accessories",
+            "menu_url": "shopify://collections/accessories",
+            "menu_heading": "Accessories"
+          },
+          "blocks": {}
+        },
+        "megamenu_NxgDDR": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Trends",
+            "menu_url": "shopify://collections/trends",
+            "menu_heading": "Trends"
+          },
+          "blocks": {}
+        },
+        "megamenu_iRLjf4": {
+          "type": "megamenu",
+          "name": "t:block.megamenu.preset.megamenu",
+          "settings": {
+            "menu_title": "Sale",
+            "menu_url": "shopify://collections/sale",
+            "menu_heading": "Sale"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "megamenu_ENzqVb",
+        "megamenu_GGhMbe",
+        "megamenu_zz9PGE",
+        "megamenu_wznfD6",
+        "megamenu_NxgDDR",
+        "megamenu_iRLjf4"
+      ],
+      "name": "Header",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_search": true,
+        "show_account": true,
+        "show_cart": true
+      }
+    }
+  },
+  "order": [
+    "announcement_JntbHB",
+    "header_rjaTWR"
+  ]
+}

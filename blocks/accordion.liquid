@@ -1,0 +1,156 @@
+{% doc %}
+  Accordion container with nested accordion-item blocks.
+
+  Provides styling wrapper for accordion-item blocks with padding and color settings.
+  Accordion items are rendered as nested blocks within this container.
+
+  @example
+  {% render 'accordion', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.accordion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Accordion Title",
+      "default": "t:text_defaults.accordion_heading",
+      "info": "t:info.accordion_info"
+    },
+    {
+      "type": "header",
+      "content": "t:content.desktop_padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.mobile_padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_by_default",
+      "label": "Open first item by default",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.accordion",
+      "category": "t:categories.basic",
+      "blocks": [
+        {
+          "type": "accordion-item",
+          "settings": {
+            "question": "t:text_defaults.accordion_heading",
+            "answer": "t:html_defaults.accordion_content"
+          }
+        },
+        {
+          "type": "accordion-item",
+          "settings": {
+            "question": "t:text_defaults.accordion_heading",
+            "answer": "t:html_defaults.accordion_content"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign padding_top_mobile = block.settings.padding_top_mobile
+  assign padding_bottom_mobile = block.settings.padding_bottom_mobile
+  assign padding_top_desktop = block.settings.padding_top
+  assign padding_bottom_desktop = block.settings.padding_bottom
+%}
+
+<style>
+  .accordion-{{ block.id }} {
+    --accordion-padding-top-desktop: {{ padding_top_desktop }}px;
+    --accordion-padding-bottom-desktop: {{ padding_bottom_desktop }}px;
+    --accordion-padding-top-mobile: {{ padding_top_mobile }}px;
+    --accordion-padding-bottom-mobile: {{ padding_bottom_mobile }}px;
+  }
+
+  .accordion-{{ block.id }} .accordion-wrapper {
+    padding-top: var(--accordion-padding-top-desktop);
+    padding-bottom: var(--accordion-padding-bottom-desktop);
+  }
+
+  @media (max-width: 768px) {
+    .accordion-{{ block.id }} .accordion-wrapper {
+      padding-top: var(--accordion-padding-top-mobile);
+      padding-bottom: var(--accordion-padding-bottom-mobile);
+    }
+  }
+</style>
+
+<div class="accordion-{{ block.id }}">
+  <div
+    class="accordion-container accordion-wrapper color-{{ block.settings.color_scheme }}"
+    x-data="{ openFirstByDefault: {{ block.settings.open_first_by_default | json }} }"
+  >
+    {% if block.settings.title != blank %}
+      <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">{{ block.settings.title | escape }}</h3>
+    {% endif %}
+    <div class="space-y-0">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+{% schema %}
+{
+  "name": "t:names.price",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_compare",
+      "label": "t:settings.show_compare_price",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.price",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign class_compare = 'text-sm line-through'
+  if block.settings.show_compare != true
+    assign class_compare = 'hidden'
+  endif
+%}
+
+<div class="w-full" id="product-price-{{ block.id }}">
+  {% render 'utility-price',
+    target: product.selected_or_first_available_variant,
+    class_wrapper: 'flex flex-wrap items-baseline gap-2',
+    class_price: 'p1 font-bold',
+    class_compare: class_compare
+  %}
+</div>

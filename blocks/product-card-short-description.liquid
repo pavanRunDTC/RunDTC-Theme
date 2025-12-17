@@ -1,0 +1,22 @@
+{% schema %}
+{
+  "name": "t:names.product_card_short_description",
+  "tag": "section",
+  "class": "short-description",
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.product_card_short_description",
+      "category": "t:categories.collection"
+    }
+  ]
+}
+{% endschema %}
+
+<template x-if="typeof product === 'undefined'" x-cloak>
+  <p class="product-description line-clamp-2">{{ closest.product.description | strip_html }}</p>
+</template>
+<template x-if="typeof product !== 'undefined'" x-cloak>
+  <p x-html="product.description" class="text-sm mb-2 line-clamp-2" x-show="product.description!==''" x-cloak></p>
+</template>
+ 

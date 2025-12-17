@@ -1,0 +1,354 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main_product_aWmT6y": {
+      "type": "main-product",
+      "blocks": {
+        "product_title_47CpKj": {
+          "type": "product-title",
+          "name": "Product Tile",
+          "settings": {
+            "alignment": "text-left",
+            "size": "h2",
+            "show_price": true,
+            "show_compare": true
+          },
+          "blocks": {}
+        },
+        "product_variant_rwGnMc": {
+          "type": "product-variant",
+          "name": "t:block.product_variant.preset.product_variant",
+          "settings": {
+            "sizing_chart_url": "shopify://pages/size-chart"
+          },
+          "blocks": {}
+        },
+        "buy_button_MAwhKy": {
+          "type": "buy-button",
+          "name": "t:block.buy_button.preset.buy_button",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true
+          },
+          "blocks": {}
+        },
+        "product_description_pPjNBW": {
+          "type": "product-description",
+          "name": "t:block.product_description.preset.product_description",
+          "settings": {
+            "label": "Description",
+            "color_scheme": ""
+          },
+          "blocks": {}
+        },
+        "text_zVgkmN": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Fabric & Care",
+            "field_richtext": "<p>Fabric & Care</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h4",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_wQMFw9": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Fabric & Care",
+            "field_richtext": "<ul><li>Only the best materials</li><li>Ethically and locally made</li><li>Pre-washed and pre-shrunk</li><li>Machine wash cold with similar colors</li></ul>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "product_content_wrapper_FAhEtD": {
+          "type": "product-content-wrapper",
+          "name": "t:block.product_content_wrapper.preset.product_content_wrapper",
+          "settings": {
+            "layout": "vertical"
+          },
+          "blocks": {
+            "product_content_U9dWEq": {
+              "type": "product-content",
+              "name": "t:block.product_content.preset.product_content",
+              "settings": {
+                "color_scheme": "scheme-dc2a30cb-a0a2-4ef2-984b-261e4bb4d0af",
+                "image": "shopify://shop_images/global.png",
+                "image_alignment": "text-center"
+              },
+              "blocks": {
+                "text_jpPc3P": {
+                  "type": "text",
+                  "name": "t:block.text.preset.text",
+                  "settings": {
+                    "type": "input",
+                    "is_multiline": true,
+                    "field_inline_richtext": "<strong>International delivery</strong>",
+                    "field_richtext": "<p><strong>International delivery<br/></strong>Get your order in 2 years</p>",
+                    "base_font_size": "prose-base",
+                    "paragraph_style": "base",
+                    "text_alignment": "center",
+                    "display": "block",
+                    "element": "div"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_jpPc3P"
+              ]
+            },
+            "product_content_JMenLA": {
+              "type": "product-content",
+              "name": "t:block.product_content.preset.product_content",
+              "settings": {
+                "color_scheme": "scheme-c5d404f3-cedf-4a73-bf12-18d71df63018",
+                "image": "shopify://shop_images/global.png",
+                "image_alignment": "text-center"
+              },
+              "blocks": {
+                "text_DWqq6D": {
+                  "type": "text",
+                  "name": "t:block.text.preset.text",
+                  "settings": {
+                    "type": "input",
+                    "is_multiline": true,
+                    "field_inline_richtext": "<strong>International delivery</strong>",
+                    "field_richtext": "<p><strong>International delivery<br/></strong>Get your order in 2 years</p>",
+                    "base_font_size": "prose-base",
+                    "paragraph_style": "base",
+                    "text_alignment": "center",
+                    "display": "block",
+                    "element": "div"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_DWqq6D"
+              ]
+            }
+          },
+          "block_order": [
+            "product_content_U9dWEq",
+            "product_content_JMenLA"
+          ]
+        }
+      },
+      "block_order": [
+        "product_title_47CpKj",
+        "product_variant_rwGnMc",
+        "buy_button_MAwhKy",
+        "product_description_pPjNBW",
+        "text_zVgkmN",
+        "text_wQMFw9",
+        "product_content_wrapper_FAhEtD"
+      ],
+      "name": "Main Product",
+      "settings": {
+        "color_scheme": "",
+        "slider": true
+      }
+    },
+    "recommended_products_7g8DBU": {
+      "type": "recommended-products",
+      "blocks": {
+        "section-title": {
+          "type": "text",
+          "name": "Header",
+          "static": true,
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Recommended Products",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h3",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "static-product-card": {
+          "type": "product-card",
+          "name": "Product card - Using Liquid",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "show_badges": true
+          },
+          "blocks": {
+            "product_image_Xp7ReH": {
+              "type": "product-image",
+              "name": "t:names.product_image",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_title_TVxLez": {
+              "type": "product-card-title",
+              "name": "t:names.product_card_title",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_price_p9LTqc": {
+              "type": "product-card-price",
+              "name": "t:names.product_card_price",
+              "settings": {
+                "show_compare": true
+              },
+              "blocks": {}
+            },
+            "product_card_short_description_yjxdba": {
+              "type": "product-card-short-description",
+              "name": "t:names.product_card_short_description",
+              "settings": {},
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_image_Xp7ReH",
+            "product_card_title_TVxLez",
+            "product_card_price_p9LTqc",
+            "product_card_short_description_yjxdba"
+          ]
+        },
+        "static-product-card-api": {
+          "type": "product-card",
+          "name": "Product card - Using API",
+          "static": true,
+          "settings": {
+            "show_badges": true
+          },
+          "blocks": {
+            "product_image_cQRxnr": {
+              "type": "product-image",
+              "name": "t:names.product_image",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_title_A3QpRr": {
+              "type": "product-card-title",
+              "name": "t:names.product_card_title",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_price_GnqB69": {
+              "type": "product-card-price",
+              "name": "t:names.product_card_price",
+              "settings": {
+                "show_compare": true
+              },
+              "blocks": {}
+            },
+            "product_card_short_description_NKGMAf": {
+              "type": "product-card-short-description",
+              "name": "t:names.product_card_short_description",
+              "settings": {},
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_image_cQRxnr",
+            "product_card_title_A3QpRr",
+            "product_card_price_GnqB69",
+            "product_card_short_description_NKGMAf"
+          ]
+        }
+      },
+      "name": "t:names.recommended-prod",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "using_api": true
+      }
+    },
+    "section_A6w3i9": {
+      "type": "section",
+      "blocks": {
+        "accordion_VFWD9d": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "title": "Accordion heading",
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_top_mobile": 40,
+            "padding_bottom_mobile": 40,
+            "open_first_by_default": false
+          },
+          "blocks": {
+            "accordion_item_HMjWQQ": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content here.</p>"
+              },
+              "blocks": {}
+            },
+            "accordion_item_3RWfqj": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content here.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_item_HMjWQQ",
+            "accordion_item_3RWfqj"
+          ]
+        }
+      },
+      "block_order": [
+        "accordion_VFWD9d"
+      ],
+      "name": "t:names.section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    }
+  },
+  "order": [
+    "main_product_aWmT6y",
+    "recommended_products_7g8DBU",
+    "section_A6w3i9"
+  ]
+}

@@ -1,0 +1,22 @@
+{% style %}
+  {% for scheme in settings.color_schemes -%}
+    {% if forloop.index == 1 %}
+      :root,
+      [data-theme],
+    {% endif %}
+    .color-{{ scheme.id }} {
+        --color-base-100: rgb({{ scheme.settings.background.rgba }});
+        --color-base-content: rgb({{ scheme.settings.foreground.rgba }});
+        --color-primary: rgb({{ scheme.settings.primary_button_background.rgba }});
+        --color-primary-content: rgb({{ scheme.settings.primary_button_text.rgba }});
+        --color-secondary: rgb({{ scheme.settings.secondary_button_background.rgba }});
+        --color-secondary-content: rgb({{ scheme.settings.secondary_button_text.rgba }});
+        --border: 1px;
+        --depth: 0;
+        --noise: 0;
+        --radius-selector: 2rem;
+        --radius-field: 2rem;
+        --radius-box: 2rem;
+      }
+  {% endfor %}
+{% endstyle %}

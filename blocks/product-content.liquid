@@ -1,0 +1,67 @@
+{% schema %}
+{
+  "name": "t:names.product_content",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "t:settings.alignment",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "text-right",
+          "label": "t:options.right"
+        },
+        {
+          "value": "text-center",
+          "label": "t:options.center"
+        }
+      ],
+      "default": "text-left"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_content",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+{% liquid
+  assign imageclass = 'w-6 h-auto '
+
+  case block.settings.image_alignment
+    when 'text-left'
+      assign imageclasswrapper = 'my-4 ml-4 flex items-center w-full justify-start'
+    when 'text-right'
+      assign imageclasswrapper = 'my-4 mr-4 flex items-center w-full justify-end'
+    when 'text-center'
+      assign imageclasswrapper = 'my-4 flex items-center w-full justify-center'
+  endcase
+%}
+<div class="section-wrapper color-{{ block.settings.color_scheme }} p-4 shadow-lg shadow-white/20 rounded-lg flex-1">
+  {% if block.settings.image %}
+    {% render 'utility-image', image: block.settings.image, class: imageclasswrapper, image_class: imageclass %}
+  {% endif %}
+  {% content_for 'blocks' %}
+</div>

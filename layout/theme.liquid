@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% render 'layout-head-top' %}
+    {{ content_for_header }}
+  </head>
+
+  <body class="flex flex-col min-h-[100dvh]">
+    {% sections 'group_header' %}
+
+    <main class="flex-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'group_footer' %}
+    {% section 'mini-cart' %}
+    {% render 'layout-body-bottom' %}
+  </body>
+</html>

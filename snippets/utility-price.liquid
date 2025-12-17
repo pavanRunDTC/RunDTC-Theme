@@ -1,0 +1,83 @@
+{% doc %}
+  Renders a comprehensive price block with all common Shopify price features.
+
+  @param {object} target - The product or variant object to display the price.
+  @param {string} [class_compare] - Optional. CSS classes for the compare at price.
+  @param {string} [class_price] - Optional. CSS classes for the main price.
+  @param {string} [class_unit] - Optional. CSS classes for unit price.
+  @param {string} [class_wrapper] - Optional. CSS classes to add to the price block.
+  @param {boolean} [show_badge] - Optional. Show "Sale" badge when price is reduced. Default: true.
+  @param {boolean} [show_compare] - Optional. Show compare at price when available. Default: true.
+  @param {string} [price_id] - Optional. ID for the price element for accessibility.
+
+  @example
+  {% render 'utility-price',
+    target: product.selected_or_first_available_variant,
+    show_badge: true,
+    show_compare: true
+  %}
+{% enddoc %}
+
+{% if target %}
+  {% liquid
+    # Default parameter values
+    assign show_badge = show_badge | default: true
+    assign show_compare = show_compare | default: true
+
+    # Classes
+    assign class_compare = class_compare | default: 'p2 line-through'
+    assign class_price = class_price | default: 'p1 font-bold'
+    assign class_unit = class_unit | default: 'p3'
+    assign class_wrapper = class_wrapper | default: 'flex flex-wrap items-baseline gap-2 text-blue-800'
+
+    # Price data
+    assign current_price = target.price
+
+    # Check if this is a product with variant price range
+    if target.price_varies
+      assign current_price = target.price_min
+    endif
+
+    # Currency formatting based on theme settings
+    if settings.currency_code_enabled
+      assign price_money = current_price | money_with_currency
+    else
+      assign price_money = current_price | money
+    endif
+
+    # Unit price if available (for variants)
+    assign unit_price_available = false
+    if target.unit_price_measurement
+      assign unit_price_available = true
+      if settings.currency_code_enabled
+        assign unit_price_money = target.unit_price | money_with_currency
+      else
+        assign unit_price_money = target.unit_price | money
+      endif
+    endif
+  %}
+
+  <div class="{{ class_wrapper }}" {% if price_id %}id="{{ price_id }}"{% endif %}>
+    {%- comment -%} Compare at price (original price) {%- endcomment -%}
+    {% if show_compare %}
+      <template x-if="showComparePrice">
+        <s class="{{ class_compare }}" x-text="currentComparePrice"></s>
+      </template>
+    {% endif %}
+
+    {%- comment -%} Current price (reactive with Alpine) {%- endcomment -%}
+    <span
+      class="{{ class_price }}"
+      x-text="currentPrice || '{{ price_money | escape }}'"
+    >
+      {{ price_money }}
+    </span>
+
+    {%- comment -%} Unit price (e.g., $X.XX per 100g) {%- endcomment -%}
+    {% if unit_price_available %}
+      <span class="{{ class_unit }}">
+        {{ unit_price_money }}/{{ target.unit_price_measurement.reference_value }}{{ target.unit_price_measurement.reference_unit }}
+      </span>
+    {% endif %}
+  </div>
+{% endif %}

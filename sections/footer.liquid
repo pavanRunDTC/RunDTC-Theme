@@ -1,0 +1,72 @@
+{% schema %}
+{
+  "name": "t:names.footer",
+  "tag": "section",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.footer_settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "default": 4,
+      "min": 1,
+      "max": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo"
+    },
+    {
+      "type": "_group-navigation"
+    },
+    {
+      "type": "newsletter"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "social"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.footer"
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign columns = section.settings.columns | default: 4
+  case columns
+    when 1
+      assign child_visibility_classes = 'md:grid-cols-1'
+    when 2
+      assign child_visibility_classes = 'md:grid-cols-2'
+    when 3
+      assign child_visibility_classes = 'md:grid-cols-3'
+    when 4
+      assign child_visibility_classes = 'md:grid-cols-4'
+    else
+      assign child_visibility_classes = 'md:grid-cols-5'
+  endcase
+%}
+<footer class="footer py-10 color-{{ section.settings.color_scheme }}">
+  <div class="container grid grid-cols-1 gap-4 md:gap-6 {{ child_visibility_classes }}">
+    {% content_for 'blocks' %}
+  </div>
+</footer>

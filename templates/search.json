@@ -1,0 +1,117 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section": {
+      "type": "section",
+      "blocks": {
+        "text_TEdHhK": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Search Results",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h1",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_TEdHhK"
+      ],
+      "name": "Page Title",
+      "settings": {
+        "section_padding_top": 20,
+        "section_padding_bottom": 20,
+        "section_padding_top_mobile": 10,
+        "section_padding_bottom_mobile": 10,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "search_body_eyx8pL": {
+      "type": "search-body",
+      "blocks": {
+        "prod-card": {
+          "type": "product-card",
+          "static": true,
+          "settings": {
+            "show_badges": true
+          },
+          "blocks": {
+            "product_image_ejpLJb": {
+              "type": "product-image",
+              "name": "t:names.product_image",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_title_M3GNWy": {
+              "type": "product-card-title",
+              "name": "t:names.product_card_title",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_short_description_DQXrfX": {
+              "type": "product-card-short-description",
+              "name": "t:names.product_card_short_description",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_price_NNQxJh": {
+              "type": "product-card-price",
+              "name": "t:names.product_card_price",
+              "settings": {
+                "show_compare": true
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_image_ejpLJb",
+            "product_card_title_M3GNWy",
+            "product_card_short_description_DQXrfX",
+            "product_card_price_NNQxJh"
+          ]
+        }
+      },
+      "name": "t:names.search_body",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "enable_filter": true,
+        "filter_position": "vertical",
+        "enable_sort": true,
+        "enable_autoload": true,
+        "product_count": 12
+      }
+    }
+  },
+  "order": [
+    "section",
+    "search_body_eyx8pL"
+  ]
+}

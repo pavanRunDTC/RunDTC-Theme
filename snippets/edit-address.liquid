@@ -1,0 +1,168 @@
+<div id="EditAddress_{{ address.id }}" x-show="activeEditId === {{ address.id }}"  class="mx-auto max-w-md">
+  <h5 class="my-6">{{ 'customer.addresses.edit_address' | t }}</h5>
+  {%- form 'customer_address', address, class: 'flex flex-wrap justify-between items-center gap-6' -%}
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressFirstName_{{ address.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+      <input
+        type="text"
+        class="w-full input"
+        id="AddressFirstName_{{ address.id }}"
+        name="address[first_name]"
+        value="{{ address.first_name }}"
+        autocomplete="given-name"
+        placeholder="{{ 'customer.addresses.first_name' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressLastName_{{ address.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressLastName_{{ address.id }}"
+        name="address[last_name]"
+        value="{{ address.last_name }}"
+        autocomplete="family-name"
+        placeholder="{{ 'customer.addresses.last_name' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressCompany_{{ address.id }}">{{ 'customer.addresses.company' | t }}</label>
+      <input
+        type="text"
+        class="w-full input"
+        id="AddressCompany_{{ address.id }}"
+        name="address[company]"
+        value="{{ address.company }}"
+        autocomplete="organization"
+        placeholder="{{ 'customer.addresses.company' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressAddress1_{{ address.id }}">{{ 'customer.addresses.address1' | t }}</label>
+      <input
+        type="text"
+        class="w-full input"
+        id="AddressAddress1_{{ address.id }}"
+        name="address[address1]"
+        value="{{ address.address1 }}"
+        autocomplete="address-line1"
+        placeholder="{{ 'customer.addresses.address1' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressAddress2_{{ address.id }}">{{ 'customer.addresses.address2' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressAddress2_{{ address.id }}"
+        name="address[address2]"
+        value="{{ address.address2 }}"
+        autocomplete="address-line2"
+        placeholder="{{ 'customer.addresses.address2' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressCity_{{ address.id }}">{{ 'customer.addresses.city' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressCity_{{ address.id }}"
+        name="address[city]"
+        value="{{ address.city }}"
+        autocomplete="address-level2"
+        placeholder="{{ 'customer.addresses.city' | t }}"
+      >
+    </div>
+    <div class="country-select text-left w-full">
+      <label class="font-semibold" for="country_{{ address.id }}">
+        {{ 'customer.addresses.country' | t }}
+      </label>
+      <div class="select w-full">
+        <select
+          class="w-full input"
+          x-ref="address_country_{{ address.id }}"
+          name="address[country]"
+          data-address-country-select
+          data-default="{{ address.country }}"
+          data-form-id="{{ address.id }}"
+          :value="address.country"
+          id="country_{{ address.id }}"
+          autocomplete="country"
+          x-init="
+            $nextTick(() => {
+              province = JSON.parse($refs['address_country_{{ address.id }}'].selectedOptions[0].dataset.provinces);
+              $refs['address_province_{{ address.id }}'].value = address.province;
+            })
+          "
+          @change="province = JSON.parse($event.target.selectedOptions[0].dataset.provinces); address.country = $event.target.selectedOptions[0].text;"
+        >
+          {{ all_country_option_tags }}
+        </select>
+        <span class="svg-wrapper">
+          {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+        </span>
+      </div>
+    </div>
+    <div id="AddressProvinceContainer_{{ address.id }}" class="text-left w-full" x-show="province.length > 0">
+      <label class="font-semibold" for="province_{{ address.id }}">
+        {{ 'customer.addresses.province' | t }}
+      </label>
+      <div class="select w-full">
+        <select
+          class="w-full input"
+          x-ref="address_province_{{ address.id }}"
+          id="province_{{ address.id }}"
+          name="address[province]"
+          data-default="{{ address.province }}"
+          autocomplete="address-level1"
+        >
+          <template x-for="item in province">
+            <option :value="item[0]" x-text="item[0]"
+                    :selected="item[0] === '{{ address.province }}'"></option>
+          </template>
+        </select>
+
+    <span class="svg-wrapper">
+      {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+    </span>
+      </div>
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressZip_{{ address.id }}">{{ 'customer.addresses.zip' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressZip_{{ address.id }}"
+        name="address[zip]"
+        value="{{ address.zip }}"
+        autocapitalize="characters"
+        autocomplete="postal-code"
+        placeholder="{{ 'customer.addresses.zip' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressPhone_{{ address.id }}">{{ 'customer.addresses.phone' | t }}</label>
+      <input
+        class="w-full input"
+        type="tel"
+        id="AddressPhone_{{ address.id }}"
+        name="address[phone]"
+        value="{{ address.phone }}"
+        autocomplete="tel"
+        placeholder="{{ 'customer.addresses.phone' | t }}"
+      >
+    </div>
+    <div class="flex items-center w-full gap-2">
+      {{ form.set_as_default_checkbox | replace: '<input', '<input class="customer_default_checkbox"' }}
+      <label for="address_default_address_{{ address.id }}" class="mt-0">
+        {{ 'customer.addresses.set_default' | t }}
+      </label>
+    </div>
+    <div class="flex w-full gap-4 justify-center">
+      <button class="btn btn-primary">{{ 'customer.addresses.update' | t }}</button>
+      <button class="btn btn-primary" type="reset" @click.prevent="activeEditId = null">
+        {{ 'customer.addresses.cancel' | t }}
+      </button>
+    </div>
+  {%- endform -%}
+</div>

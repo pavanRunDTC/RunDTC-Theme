@@ -1,0 +1,21 @@
+{% schema %}
+{
+  "name": "t:names.buttons",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.buttons",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="flex items-center gap-4 flex-wrap">
+  {% content_for 'blocks' %}
+</div>

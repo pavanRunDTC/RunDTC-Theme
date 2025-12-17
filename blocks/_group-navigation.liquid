@@ -1,0 +1,114 @@
+{% doc %}
+  Group Navigation Block
+  A container block that groups multiple navigation menu blocks together.
+  Used within megamenu blocks to organize related navigation links.
+
+  @example
+  {% render 'blocks/_group-navigation', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.group",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "navigation-menu"
+    },
+    {
+      "type": "_group-navigation"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:names.navigation"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "default": 4,
+      "min": 1,
+      "max": 6
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "t:settings.mobile_columns",
+      "default": 1,
+      "min": 1,
+      "max": 3
+    },
+    {
+      "type": "text",
+      "id": "group_title",
+      "label": "t:names.title",
+      "default": "Navigation Group"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.navigation",
+      "category": "t:categories.links",
+      "blocks": [
+        {
+          "type": "navigation-menu",
+          "settings": {
+            "nav_heading": "t:text_defaults.heading"
+          }
+        },
+        {
+          "type": "navigation-menu",
+          "settings": {
+            "nav_heading": "t:text_defaults.heading"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+{%- liquid
+  assign columns = block.settings.columns | default: 4
+  assign columns_mobile = block.settings.columns_mobile | default: 3
+  case columns
+    when 1
+      assign parent_visibility_classes = 'md:col-span-1'
+      assign child_visibility_classes = 'md:grid-cols-1'
+    when 2
+      assign parent_visibility_classes = 'md:col-span-2'
+      assign child_visibility_classes = 'md:grid-cols-2'
+    when 3
+      assign parent_visibility_classes = 'md:col-span-3'
+      assign child_visibility_classes = 'md:grid-cols-3'
+    when 4
+      assign parent_visibility_classes = 'md:col-span-4'
+      assign child_visibility_classes = 'md:grid-cols-4'
+    when 5
+      assign parent_visibility_classes = 'md:col-span-5'
+      assign child_visibility_classes = 'md:grid-cols-5'
+    else
+      assign parent_visibility_classes = 'md:col-span-6'
+      assign child_visibility_classes = 'md:grid-cols-6'
+  endcase
+  case columns_mobile
+    when 1
+      assign child_visibility_classes = child_visibility_classes | append: ' grid-cols-1'
+    when 2
+      assign child_visibility_classes = child_visibility_classes | append: ' grid-cols-2'
+    else
+      assign child_visibility_classes = child_visibility_classes | append: ' grid-cols-3'
+  endcase
+-%}
+
+<div class="navigation-group w-full {{ parent_visibility_classes }}">
+  {%- if block.settings.group_title != blank -%}
+    <p class="text-base mb-3 md:mb-4 font-bold">
+      {{ block.settings.group_title | escape }}
+    </p>
+  {%- endif -%}
+  <div class="navigation-group-inner w-full gap-4 grid {{ child_visibility_classes }} md:gap-6">
+    {% content_for 'blocks' %}
+  </div>
+</div>

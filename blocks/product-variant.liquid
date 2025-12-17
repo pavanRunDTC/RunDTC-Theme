@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "t:names.product_variant",
+  "tag": null,
+  "settings": [
+    {
+      "type": "url",
+      "id": "sizing_chart_url",
+      "label": "t:settings.sizing_chart_url",
+      "info": "t:info.sizing_chart_link"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "t:names.product_variant",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+{% unless product.has_only_default_variant %}
+  {% liquid
+    assign color_option = null
+    assign other_options = null
+
+    for option in product.options_with_values
+      assign option_name_downcase = option.name | downcase
+      if option_name_downcase contains 'color' or option_name_downcase contains 'colour'
+        assign color_option = option
+      else
+        if other_options == null
+          assign other_options = option
+        endif
+      endif
+    endfor
+  %}
+
+  <div class="flex flex-col gap-6">
+    {% if color_option %}
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <label class="block text-sm font-medium"> {{ color_option.name }}: </label>
+          <span class="text-sm" x-text="selectedColor"></span>
+        </div>
+        <ul class="flex gap-3" role="listbox">
+          {% for value in color_option.values %}
+            {% assign variant_for_value = null %}
+            {% for variant in product.variants %}
+              {% assign variant_option_value = variant.options[color_option.position] %}
+              {% if variant_option_value == value %}
+                {% assign variant_for_value = variant %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% liquid
+              if value.swatch.color != blank
+                assign swatch_color = value.swatch.color
+              else
+                assign swatch_color = value | downcase
+              endif
+            %}
+            <li role="option">
+              <button
+                type="button"
+                @click="selectColor('{{ value | escape }}', {% if value.swatch.image %}'{{ value.swatch.image | image_url }}'{% else %}''{% endif %}, '{{ swatch_color }}')"
+                class="w-10 h-10 rounded-full border-2 transition-all cursor-pointer {% if variant_for_value and variant_for_value.available == false %}opacity-50 cursor-not-allowed{% endif %}"
+                :class="selectedColor === '{{ value | escape }}' ? 'border-black ring-2 ring-offset-2 ring-black' : 'border-gray-300 hover:border-gray-400'"
+                style="{% if value.swatch.image %}background-image: url({{ value.swatch.image | image_url: width: 40 }});background-size: cover;{% elsif swatch_color %}background-color: {{ swatch_color }};{% else %}background-color: lightgray;{% endif %}"
+                {% if variant_for_value and variant_for_value.available == false %}
+                  disabled
+                {% endif %}
+                role="option"
+                aria-label="{{ value | escape }}"
+                title="{{ value | escape }}"
+              ></button>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    {% if other_options %}
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <label class="block text-sm font-medium">
+            {{ other_options.name }}
+          </label>
+          {% if block.settings.sizing_chart_url != blank %}
+            <a
+              href="{{ block.settings.sizing_chart_url }}"
+              class="text-sm underline"
+              target="_blank"
+            >
+              {{ 'general.product.sizing_chart' | t }}
+            </a>
+          {% endif %}
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {% for value in other_options.values %}
+            <button
+              type="button"
+              class="min-w-[60px] px-4 py-2 text-sm font-medium border rounded cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:bg-gray-100 disabled:text-gray-400 disabled:border-gray-200 transition-all"
+              :disabled="!isOptionAvailable('{{ other_options.position | minus: 1 }}', '{{ value | escape }}')"
+              :class="selectedOtherOption === '{{ value | escape }}' ? 'border-black bg-black text-white' : 'border-gray-300 bg-white text-gray-800 hover:border-gray-400'"
+              @click="selectOtherOption('{{ value | escape }}')"
+            >
+              {{ value }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endunless %}

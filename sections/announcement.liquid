@@ -1,0 +1,147 @@
+{% schema %}
+{
+  "name": "t:names.announcement",
+  "tag": "section",
+  "class": "announcement-section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "t:settings.auto_play",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "auto_play_interval",
+      "label": "t:settings.auto_play_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promo_message",
+      "name": "t:names.promo_message",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "message",
+          "label": "t:settings.message",
+          "default": "<p>Welcome to our store</p>",
+          "info": "t:info.announcement_message"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.announcement",
+      "blocks": [
+        {
+          "type": "promo_message",
+          "settings": {
+            "message": "<p>Promotional message goes here <a href=\"#\">See Details</a></p>"
+          }
+        },
+        {
+          "type": "promo_message",
+          "settings": {
+            "message": "<p>Promotional message goes here that would wrap to two lines if a long message <a href=\"#\">See Details</a></p>"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
+
+{% liquid
+  assign carousel_id = 'AnnouncementBarCarousel-' | append: section.id
+  assign auto_play = section.settings.auto_play
+  assign auto_play_interval = section.settings.auto_play_interval | times: 1000
+  assign actual_slides = section.blocks.size
+  if actual_slides == 0
+    assign actual_slides = 3
+  endif
+%}
+
+{% style %}
+  .announcement-section {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+{% endstyle %}
+
+<div
+  class="announcement-section relative color-{{ section.settings.color_scheme }} w-full transition-transform duration-300 ease-out"
+  x-load="eager"
+  x-load-src="{{ 'build.announcement-bar.min.js' | asset_url }}"
+  x-data="announcementBarCarousel({
+      autoPlay: {{ auto_play | json | escape }},
+      autoPlayInterval: {{ auto_play_interval | json | escape }},
+      totalSlides: {{ actual_slides | json | escape }}
+    })"
+  id="{{ carousel_id }}"
+  x-bind="directives.self"
+>
+  <div class="flex items-center justify-between relative w-full container py-2.5 gap-x-2">
+    <!-- Previous Arrow -->
+    <button
+      type="button"
+      @click="previousSlide()"
+      :disabled="totalSlides <= 1"
+      class="transition-opacity cursor-pointer disabled:opacity-0 disabled:cursor-not-allowed"
+      aria-label="{{ 'sections.announcement.previous_slide' | t }}"
+    >
+      {% render 'utility-icon', name: 'arrow_left', class: 'size-4' %}
+    </button>
+
+    <!-- Carousel Content -->
+    <div class="flex-1 flex items-center justify-center overflow-hidden">
+      <div
+        class="splide w-full"
+        data-splide-container
+      >
+        <div class="splide__track">
+          <ul class="splide__list">
+            {% for block in section.blocks %}
+              {% if block.settings.message != blank %}
+                <li
+                  class="splide__slide w-full max-w-none min-w-full prose prose-invert prose-sm flex flex-grow items-center justify-center text-center"
+                  data-block-id="{{ block.id }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.message }}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Arrow -->
+    <button
+      type="button"
+      @click="nextSlide()"
+      :disabled="totalSlides <= 1"
+      class="transition-opacity cursor-pointer disabled:opacity-0 disabled:cursor-not-allowed"
+      aria-label="{{ 'sections.announcement.next_slide' | t }}"
+    >
+      {% render 'utility-icon', name: 'arrow_right', class: 'size-4' %}
+    </button>
+  </div>
+</div>

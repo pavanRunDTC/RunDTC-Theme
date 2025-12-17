@@ -1,0 +1,262 @@
+{% doc %}
+  Flexible text block component supporting various content types and styling options.
+
+  Supports input text (inline or multiline richtext), shop name, and page title.
+  Provides configurable font sizes, paragraph styles, text alignment, display modes,
+  and HTML element selection for semantic markup.
+
+  @example
+  {% render 'text', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.text",
+  "tag": null,
+  "settings": [
+    {
+      "id": "type",
+      "type": "select",
+      "label": "t:settings.type",
+      "default": "input",
+      "options": [
+        {
+          "value": "input",
+          "label": "t:options.input"
+        },
+        {
+          "value": "shop_name",
+          "label": "t:options.shop_name"
+        },
+        {
+          "value": "page_title",
+          "label": "t:options.page_title"
+        }
+      ]
+    },
+    {
+      "id": "is_multiline",
+      "type": "checkbox",
+      "label": "t:settings.multiline_text",
+      "visible_if": "{{ block.settings.type == 'input' }}",
+      "default": false
+    },
+    {
+      "id": "field_inline_richtext",
+      "type": "inline_richtext",
+      "label": "t:names.content",
+      "visible_if": "{{ block.settings.type == 'input' and block.settings.is_multiline == false }}",
+      "default": "Lorem ipsum"
+    },
+    {
+      "id": "field_richtext",
+      "type": "richtext",
+      "label": "t:names.content",
+      "visible_if": "{{ block.settings.type == 'input' and block.settings.is_multiline == true }}",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+    },
+    {
+      "id": "base_font_size",
+      "type": "select",
+      "label": "t:settings.font_size",
+      "default": "prose-base",
+      "options": [
+        {
+          "value": "prose-sm",
+          "label": "t:options.small"
+        },
+        {
+          "value": "prose-base",
+          "label": "t:options.base"
+        },
+        {
+          "value": "prose-lg",
+          "label": "t:options.large"
+        },
+        {
+          "value": "prose-xl",
+          "label": "t:options.extra_large"
+        },
+        {
+          "value": "prose-2xl",
+          "label": "t:options.extra_large_2"
+        }
+      ]
+    },
+    {
+      "id": "paragraph_style",
+      "type": "select",
+      "label": "t:settings.paragraph_style",
+      "visible_if": "{{ block.settings.type != 'input' or block.settings.type == 'input' and block.settings.is_multiline == false }}",
+      "default": "base",
+      "options": [
+        {
+          "value": "base",
+          "label": "t:options.base"
+        },
+        {
+          "value": "h1",
+          "label": "t:options.h1"
+        },
+        {
+          "value": "h2",
+          "label": "t:options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:options.h3"
+        },
+        {
+          "value": "h4",
+          "label": "t:options.h4"
+        },
+        {
+          "value": "h5",
+          "label": "t:options.h5"
+        },
+        {
+          "value": "h6",
+          "label": "t:options.h6"
+        }
+      ]
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment",
+      "label": "t:settings.alignment",
+      "visible_if": "{{ block.settings.display == 'block' }}",
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "t:content.advanced"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:content.advanced_text"
+    },
+    {
+      "id": "display",
+      "type": "select",
+      "label": "t:settings.display",
+      "default": "block",
+      "options": [
+        {
+          "value": "block",
+          "label": "t:options.block"
+        },
+        {
+          "value": "inline",
+          "label": "t:options.inline"
+        },
+        {
+          "value": "contents",
+          "label": "t:options.contents"
+        }
+      ]
+    },
+    {
+      "id": "element",
+      "type": "select",
+      "label": "t:settings.element",
+      "default": "div",
+      "options": [
+        {
+          "value": "div",
+          "label": "t:options.div"
+        },
+        {
+          "value": "article",
+          "label": "t:options.article"
+        },
+        {
+          "value": "h1",
+          "label": "t:options.h1"
+        },
+        {
+          "value": "h2",
+          "label": "t:options.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:options.h3"
+        },
+        {
+          "value": "h4",
+          "label": "t:options.h4"
+        },
+        {
+          "value": "h5",
+          "label": "t:options.h5"
+        },
+        {
+          "value": "h6",
+          "label": "t:options.h6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.text",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}
+
+{%- liquid
+  # Variables for rendering the text block
+  assign content = ''
+  assign classes = ''
+  assign element = block.settings.element
+  assign wrapper_open = ''
+  assign wrapper_close = ''
+
+  # Apply prose for inline richtext if multiline is false
+  if block.settings.type == 'input' and block.settings.is_multiline == false
+    assign classes = 'prose '
+    assign classes = classes | append: block.settings.display | append: ' ' | append: block.settings.base_font_size
+  endif
+
+  # Apply alignment classes if it's not an inline or contents display
+  if block.settings.display == 'block'
+    case block.settings.text_alignment
+      when 'left'
+        assign classes = classes | append: ' text-left'
+      when 'center'
+        assign classes = classes | append: ' text-center'
+      when 'right'
+        assign classes = classes | append: ' text-right'
+    endcase
+  endif
+
+  # Paragraph style wrapper
+  unless block.settings.type == 'text' and block.settings.is_multiline == true and block.settings.paragraph_style == 'base'
+    assign wrapper_open = '<span class="content ' | append: block.settings.paragraph_style | append: '">'
+    assign wrapper_close = '</span>'
+  endunless
+
+  # Determine the content based on the type of text block
+  case block.settings.type
+    when 'shop_name'
+      assign content = shop.name
+    when 'page_title'
+      assign content = page_title
+    when 'input'
+      if block.settings.is_multiline == false
+        assign content = block.settings.field_inline_richtext
+      elsif block.settings.is_multiline == true
+        assign content = block.settings.field_richtext
+      endif
+  endcase
+-%}
+
+<{{ element }}
+  {{ block.shopify_attributes }}
+  class="max-w-none {{ classes }}"
+>
+  {{- wrapper_open -}}
+  {{- content -}}
+  {{- wrapper_close -}}
+</{{ element }}>

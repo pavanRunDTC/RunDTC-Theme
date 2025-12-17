@@ -1,0 +1,175 @@
+{% doc %}
+  A reusable button component with customizable text, URL, style, alignment, and width options.
+
+  This block provides settings for button text, destination URL, visual styling (primary/secondary),
+  button type variants (outline, soft, dash), link target behavior, alignment, and width options.
+
+  @example
+  {% render 'button', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:names.button"
+    },
+    {
+      "id": "button_text",
+      "type": "text",
+      "label": "t:names.text",
+      "default": "t:text_defaults.button_text"
+    },
+    {
+      "id": "button_style",
+      "type": "select",
+      "label": "t:settings.style",
+      "default": "btn-primary",
+      "options": [
+        {
+          "value": "btn-primary",
+          "label": "t:options.primary"
+        },
+        {
+          "value": "btn-secondary",
+          "label": "t:options.secondary"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "t:settings.type",
+      "default": "",
+      "options": [
+        {
+          "value": "",
+          "label": "t:options.default"
+        },
+        {
+          "value": "btn-outline",
+          "label": "t:options.outline"
+        },
+        {
+          "value": "btn-soft",
+          "label": "t:options.soft"
+        },
+        {
+          "value": "btn-dash",
+          "label": "t:options.dash"
+        }
+      ]
+    },
+    {
+      "id": "button_url",
+      "type": "url",
+      "label": "t:settings.link"
+    },
+    {
+      "id": "button_target",
+      "type": "select",
+      "label": "t:settings.link_target",
+      "default": "_self",
+      "options": [
+        {
+          "value": "_self",
+          "label": "t:options.same_window"
+        },
+        {
+          "value": "_blank",
+          "label": "t:options.new_window"
+        }
+      ]
+    },
+    {
+      "id": "button_alignment",
+      "type": "select",
+      "label": "t:settings.alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "normal",
+          "label": "t:options.normal"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "normal"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.button",
+      "category": "t:categories.basic",
+      "settings": {
+        "button_text": "t:names.button",
+        "button_style": "primary",
+        "button_target": "_self",
+        "button_alignment": "left"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{%- liquid
+  assign button_text = block.settings.button_text
+  assign button_url = block.settings.button_url
+  assign button_style = block.settings.button_style
+  assign button_target = block.settings.button_target
+  assign button_alignment = block.settings.button_alignment
+  assign button_width = block.settings.button_width
+
+  # Set alignment classes
+  assign alignment_class = 'justify-start'
+  if button_alignment == 'center'
+    assign alignment_class = 'justify-center'
+  elsif button_alignment == 'right'
+    assign alignment_class = 'justify-end'
+  endif
+
+  # Set width classes
+  assign width_class = 'inline-flex'
+  if button_width == 'full_width'
+    assign width_class = 'flex w-full'
+  endif
+-%}
+
+{%- if button_text != blank -%}
+  <div class="flex {{ alignment_class }} w-full">
+    <a
+      href="{{ button_url | escape }}"
+      class="btn {{ button_style }} {{ block.settings.button_type }} {{ width_class }} btn-lg"
+      {% if button_target == '_blank' %}
+        target="_blank"
+        rel="noopener noreferrer"
+      {% endif %}
+    >
+      {{ button_text | escape }}
+    </a>
+  </div>
+{%- endif -%}

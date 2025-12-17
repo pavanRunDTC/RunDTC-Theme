@@ -1,0 +1,134 @@
+{% doc %}
+  Typography demonstration block showcasing all component classes with hardcoded text.
+
+  Displays a comprehensive set of typography styles including headings (h1-h6),
+  text sizes, font weights, input fields with various states, and validation examples.
+  Used for design system documentation and visual testing of component styles.
+
+  @example
+  {% render 'design_library', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "Typography Demo",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "demo_image",
+      "label": "Demo Image",
+      "info": "Select an image for the design library demonstration"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="px-bl" {{ block.shopify_attributes }}>
+  <div class="h1">Heading 1 - 120px</div>
+  <div class="h2">Heading 2 - 104px</div>
+  <div class="h3">Heading 3 - 80px</div>
+  <div class="h4">Heading 4 - 64px</div>
+  <div class="h5">Heading 5 - 40px</div>
+  <div class="h6">Heading 6 - 24px</div>
+  <div class="my-6">
+    <p class="text-3xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 30px</p>
+    <p class="text-2xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 24px</p>
+    <p class="text-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 20px</p>
+    <p class="text-base">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - {{ settings.base_font_size }}px</p>
+    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 14px</p>
+    <p class="text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - 12px</p>
+
+    <p class="text-base font-bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Bold</p>
+    <p class="text-base uppercase">Lorem ipsum dolor sit amet, consectetur adipiscing elit. - Uppercase</p>
+  </div>
+
+  <div class="my-6">
+    <h5>Entry Fields</h5>
+    <div class="flex flex-col gap-y-4">
+      <p class="text-base uppercase font-bold">Text input</p>
+      <input type="text" placeholder="Type here" class="input">
+      <input type="text" placeholder="Disable Input" class="input" disabled>
+      <p class="text-base uppercase font-bold">Text input with text label inside</p>
+      <label class="input">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </g>
+        </svg>
+        <input type="search" class="grow" placeholder="Search">
+        <kbd class="kbd kbd-sm">⌘</kbd>
+        <kbd class="kbd kbd-sm">K</kbd>
+      </label>
+      <label class="input">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+          </g>
+        </svg>
+        <input type="text" class="grow" placeholder="index.php">
+      </label>
+      <label class="input">
+        Path
+        <input type="text" class="grow" placeholder="src/app/">
+        <span class="badge badge-neutral badge-xs">Optional</span>
+      </label>
+      <p class="text-base uppercase font-bold">Text input with data list suggestion</p>
+      <input type="text" class="input" placeholder="Which browser do you use" list="browsers">
+      <datalist id="browsers">
+        <option value="Chrome"></option>
+        <option value="Firefox"></option>
+        <option value="Safari"></option>
+        <option value="Opera"></option>
+        <option value="Edge"></option>
+      </datalist>
+      <p class="text-base uppercase font-bold">Text input with validation</p>
+      <label class="input validator">
+        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <g
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2.5"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </g>
+        </svg>
+        <input
+          type="text"
+          required
+          placeholder="Username"
+          pattern="[A-Za-z][A-Za-z0-9\-]*"
+          minlength="3"
+          maxlength="30"
+          title="Only letters, numbers or dash"
+        >
+      </label>
+      <p class="validator-hint">
+        Must be 3 to 30 characters
+        <br>
+        containing only letters, numbers or dash
+      </p>
+    </div>
+  </div>
+
+  {% if block.settings.demo_image %}
+    {% render 'utility_image', image: block.settings.demo_image %}
+  {% endif %}
+</div>

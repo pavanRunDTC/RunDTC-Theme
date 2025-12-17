@@ -1,0 +1,283 @@
+{% schema %}
+{
+  "name": "t:names.main-login",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_shop_login_button",
+      "label": "t:settings.shop_login_button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:content.desktop_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.mobile_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["customers/login"]
+  }
+}
+{% endschema %}
+{%- liquid
+  assign padding_top_mobile = section.settings.section_padding_top_mobile
+  assign padding_bottom_mobile = section.settings.section_padding_bottom_mobile
+  assign padding_top_desktop = section.settings.section_padding_top
+  assign padding_bottom_desktop = section.settings.section_padding_bottom
+-%}
+<style>
+  #shopify-section-{{ section.id }} {
+    --padding-top-desktop: {{ padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ padding_bottom_desktop }}px;
+    --padding-top-mobile: {{ padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ padding_bottom_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .section-wrapper {
+    padding-top: var(--padding-top-desktop);
+    padding-bottom: var(--padding-bottom-desktop);
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-wrapper {
+      padding-top: var(--padding-top-mobile);
+      padding-bottom: var(--padding-bottom-mobile);
+    }
+  }
+</style>
+<div class="section-wrapper color-{{ section.settings.color_scheme }} text-center">
+<div
+  class="container customer login align-center section section--narrow "
+  x-data="{ show: false }" x-cloak
+>
+  <!-- Recover Password Section -->
+  <div id="recover" x-show="show" class="mx-auto text-center space-y-2">
+    <h2 class="text-center" tabindex="-1">
+      {{ 'customer.recover_password.title' | t }}
+    </h2>
+
+    <p class="mt-2 text-center pb-3 text-sm">
+      {{ 'customer.recover_password.subtext' | t }}
+    </p>
+    <div class="max-w-md mx-auto">
+    {%- form 'recover_customer_password' -%}
+      {% assign recover_success = form.posted_successfully? %}
+
+      <div class="field">
+        <label for="RecoverEmail" class="sr-only">
+          {{ 'customer.login_page.email' | t }}
+        </label>
+
+        <input
+          type="email"
+          required
+          name="email"
+          placeholder="{{ 'customer.login_page.email' | t }}"
+          id="RecoverEmail"
+          class="w-full input"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          {% if form.errors %}
+            aria-invalid="true"
+            aria-describedby="RecoverEmail-email-error"
+            autofocus
+          {% endif %}
+        >
+      </div>
+
+      {%- if form.errors -%}
+        <small id="RecoverEmail-email-error" class="form__message text-error">
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ form.errors.messages.form }}
+        </small>
+      {%- endif -%}
+
+      <div class="register-btn-section mt-6 text-sm">
+        <button class="btn btn-primary">
+          {{ 'customer.login_page.submit' | t }}
+        </button>
+
+        <!-- Cancel link to hide the recover form and show the login form -->
+        <p class="submit mt-2">
+          <a href="#login" @click.prevent="show = false" class="underline text-sm">
+            {{ 'customer.login_page.cancel' | t }}
+          </a>
+        </p>
+      </div>
+    {%- endform -%}
+    </div>
+  </div>
+
+  <!-- Login Form Section -->
+  <div id="CustomerLoginForm" x-show="!show" class="max-w-md mx-auto text-center mb-6 pb-6">
+    <h2 class="mb-6" tabindex="-1">
+      {{ 'customer.login_page.title' | t }}
+    </h2>
+
+    {%- if recover_success == true -%}
+      <p class="form__message mb-6" tabindex="-1" autofocus class="text-error">
+        <span class="svg-wrapper">
+          {{- 'icon-success.svg' | inline_asset_content -}}
+        </span>
+        {{ 'customer.recover_password.success' | t }}
+      </p>
+    {%- endif -%}
+
+    {%- form 'customer_login', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}
+        <div class="mb-6">
+          <p class="form__message mb-2 text-error" tabindex="-1" autofocus>
+            <span class="svg-wrapper text-error">
+              {{- 'icon-error.svg' | inline_asset_content -}}
+            </span>
+            {{ 'blocks.contact_form.error_heading' | t }}
+          </p>
+          <p class="text-error">
+          {{ form.errors | default_errors }}
+          </p>
+        </div>
+      {%- endif -%}
+
+      {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+        {% liquid
+          assign hide_shop_login_button = true
+          if section.settings.enable_shop_login_button
+            assign hide_shop_login_button = false
+          endif
+        %}
+
+        <section name="sign-in-with-shop-provider">
+          {{ shop | login_button: hide_button: hide_shop_login_button }}
+
+          {%- unless hide_shop_login_button -%}
+            <p>
+              {{ 'customer.login_page.alternate_provider_separator' | t }}
+            </p>
+          {%- endunless -%}
+        </section>
+      {%- endif -%}
+
+      <div class="field mb-6">
+        <label for="CustomerEmail" class="sr-only">
+          {{ 'customer.login_page.email' | t }}
+        </label>
+        <input
+          type="email"
+          name="customer[email]"
+          class="w-full input"
+          id="CustomerEmail"
+          placeholder="{{ 'customer.login_page.email' | t }}"
+          required
+          autocomplete="email"
+          autocorrect="off"
+          autocapitalize="off"
+          {% if form.errors contains 'form' %}
+            aria-invalid="true"
+          {% endif %}
+        >
+      </div>
+
+      {%- if form.password_needed -%}
+        <div class="field">
+          <label for="CustomerPassword" class="sr-only">
+          {{ 'customer.login_page.password' | t }}
+        </label>
+          <input
+            type="password"
+            required
+            name="customer[password]"
+            placeholder="{{ 'customer.login_page.password' | t }}"
+            class="w-full input"
+            id="CustomerPassword"
+            autocomplete="current-password"
+            {% if form.errors contains 'form' %}
+              aria-invalid="true"
+            {% endif %}
+          >
+        </div>
+        <p class="mt-2 text-sm underline">
+          <a href="#recover" @click.prevent="show = true">
+            {{ 'customer.login_page.forgot_password' | t }}
+          </a>
+        </p>
+      {%- endif -%}
+
+      <div class="login-btn-section mt-6 text-sm">
+        <button class="btn btn-primary">
+          {{ 'customer.login_page.sign_in' | t }}
+        </button>
+        <div class="submit mt-3 flex items-center justify-center gap-1.5">
+          <a href="{{ shop.url }}" class="cancel text-sm underline" aco-visited="true">Return to Store</a> |
+          <a href="{{ routes.account_register_url }}" class="text-sm underline">
+            {{ 'customer.login_page.create_account' | t }}
+          </a>
+        </div>
+      </div>
+    {%- endform -%}
+  </div>
+
+  {%- if shop.checkout.guest_login -%}
+    <div>
+      <hr>
+      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+
+      {%- form 'guest_login' -%}
+        <button>
+          {{ 'customer.login_page.guest_continue' | t }}
+        </button>
+      {%- endform -%}
+    </div>
+  {%- endif -%}
+</div>
+</div>

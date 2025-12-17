@@ -1,0 +1,86 @@
+{% schema %}
+{
+  "name": "t:names.product_card",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "product-image"
+    },
+    {
+      "type": "product-card-title"
+    },
+    {
+      "type": "product-card-short-description"
+    },
+    {
+      "type": "product-card-price"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_badges",
+      "label": "t:settings.show_badges",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_card",
+      "category": "t:categories.collection"
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet %}
+  a.card {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+{% endstylesheet %}
+{% liquid
+  assign product = closest.product
+-%}
+{% if block.blocks.size > 0 %}
+  <a
+     :href="typeof product !== 'undefined' ? `{{ routes.root_url }}products/${product.handle}` : ''"
+  href="{% if product %}{{ routes.root_url }}products/{{ product.handle }}{% endif %}"
+    class="h-full card flex flex-col rounded-xl bg-white p-4 shadow-lg hover:shadow-xl transition"
+  >
+    {%- if block.settings.show_badges -%}
+      <template x-if="typeof product === 'undefined'" x-cloak>
+        {% if closest.product.available == false %}
+          <div class="absolute inset-0 flex items-start justify-end z-20 rounded-xl">
+            <span class="badge badge-sm mt-2 mr-2 text-white badge-secondary bg-red-600">
+              {{ 'general.pricing.sold' | t }}
+            </span>
+          </div>
+        {% elsif closest.product.compare_at_price > closest.product.price %}
+          <div class="absolute inset-0 flex items-start justify-end z-20 rounded-xl">
+            <span class="badge badge-sm mt-2 mr-2 text-white badge-primary">
+              {{ 'general.pricing.sale' | t }}
+            </span>
+          </div>
+        {% endif %}
+      </template>
+      <template x-if="typeof product !== 'undefined'" x-cloak>
+        <template x-if="!product.availableForSale || product.variants[0].comparePrice > product.minPrice">
+          <div
+            class="absolute inset-0 flex items-start justify-end z-20 rounded-xl"
+          >
+            <span
+              class="badge badge-sm mt-2 mr-2 text-white"
+              :class="!product.availableForSale ? 'badge-secondary bg-red-600' : 'badge-primary'"
+              x-text="!product.availableForSale ? '{{ 'general.pricing.sold' | t }}' : '{{ 'general.pricing.sale' | t }}'"
+            ></span>
+          </div>
+        </template>
+      </template>
+    {%- endif -%}
+    {% content_for 'blocks', closest.product: closest.product %}
+  </a>
+{% endif %}
+ 

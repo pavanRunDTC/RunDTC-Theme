@@ -1,0 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart_DgHprY": {
+      "type": "cart",
+      "name": "t:section.cart.preset.cart",
+      "settings": {
+        "continue_shopping_url": "shopify://collections/all",
+        "heading_alignment": "left",
+        "cart_color_scheme": "",
+        "summary_color_scheme": "scheme-c5dae08a-41a6-4c34-92cc-463a73a45c48"
+      }
+    }
+  },
+  "order": [
+    "cart_DgHprY"
+  ]
+}

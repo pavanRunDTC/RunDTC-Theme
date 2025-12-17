@@ -1,0 +1,7 @@
+{%- if type == 'product' -%}
+  {{ 'product-1' | placeholder_svg_tag: 'width="200" height="200"' }}
+{% elsif type == 'banner' %}
+  <div class="image w-full h-auto">
+  {{ 'lifestyle-1' | placeholder_svg_tag }}
+  </div>
+{%- endif -%}

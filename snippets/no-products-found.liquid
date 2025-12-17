@@ -1,0 +1,13 @@
+<div class="no-product-msg flex flex-col items-center justify-center text-center space-y-4 py-10">
+  <p class="text-base font-semibold">
+   {{ 'no-product-found.msg' | t }}
+  </p>
+  <button
+      type="button"
+      class="btn btn-primary inline-flex w-full"
+      x-show="Object.keys(selectedFilters).length > 0"
+      @click="clearAllFilters()"
+    >
+      {{ 'no-product-found.btnTxt' | t }}
+    </button>
+</div>

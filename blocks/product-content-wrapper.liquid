@@ -1,0 +1,50 @@
+{% schema %}
+{
+  "name": "t:names.product_content_wrapper",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:settings.layout",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "t:options.vertical"
+        },
+        {
+          "value": "horizontal",
+          "label": "t:options.horizontal"
+        }
+      ],
+      "default": "vertical",
+      "info": "Layout direction for content"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_content_wrapper",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign layout = block.settings.layout | default: 'vertical'
+
+  if layout == 'horizontal'
+    assign container_class = 'flex flex-row gap-4 w-full'
+  else
+    assign container_class = 'flex flex-col gap-4 w-full'
+  endif
+%}
+
+<div class="{{ container_class }}">
+  {% content_for 'blocks' %}
+</div>

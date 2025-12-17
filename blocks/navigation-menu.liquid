@@ -1,0 +1,67 @@
+{% doc %}
+  Navigation Menu Block
+  A navigation menu component that displays a list of links with an optional heading.
+
+  @example
+  {% render 'blocks/navigation-menu', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.menu",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "nav_heading",
+      "label": "t:settings.nav_heading"
+    },
+    {
+      "id": "menu",
+      "type": "link_list",
+      "label": "t:settings.menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.menu",
+      "category": "t:categories.header",
+      "settings": {
+        "nav_heading": "t:text_defaults.category",
+        "menu": "main-menu"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign nav_heading = block.settings.nav_heading
+  assign menu = block.settings.menu
+  assign menu_links = linklists[menu].links
+%}
+
+<div class="navigation-item box-border p-0">
+  {% if nav_heading != blank %}
+    <p class="text-base mb-3 md:mb-4 font-bold">
+      {{ nav_heading | escape }}
+    </p>
+  {% endif %}
+
+  {% if menu_links.size > 0 %}
+    <nav
+      class="w-full font-normal leading-7"
+    >
+      <ul class="flex flex-col gap-0">
+        {% for link in menu_links %}
+          <li>
+            <a href="{{ link.url }}" class="inline-block">
+              {{ link.title | escape }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
+</div>

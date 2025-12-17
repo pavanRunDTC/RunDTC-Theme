@@ -1,0 +1,130 @@
+{%- doc -%}
+  Renders a contact form with name, email, phone, and comment fields.
+
+  @param {object} settings - Block settings, required for the 'spacing-style' and 'size-style' snippets.
+  @param {object} block - Block object, required for the 'shopify_attributes' and 'id' attributes.
+
+  @example
+  {% render 'contact-form', settings: block.settings, block: block %}
+{%- enddoc -%}
+
+<div
+  class="
+    w-full md:max-w-4xl mx-auto contact-form spacing-style size-style
+    {% if settings.inherit_color_scheme == false %}color-{{ settings.color_scheme }}{% endif %}
+  "
+  style=""
+  {{ block.shopify_attributes }}
+>
+  {% assign form_id = block.id | prepend: 'ContactForm-' %}
+
+  {%- form 'contact', id: form_id, class: 'flex flex-col gap-4 w-full contact-form__form' -%}
+    {%- if form.errors -%}
+      <div
+        class="text-error flex flex-col gap-2 contact-form__error"
+        tabindex="-1"
+        autofocus
+      >
+        {{- 'icon-error.svg' | inline_asset_content -}}
+
+        {{- form.errors.translated_fields.email | capitalize }}
+        {{ form.errors.messages.email -}}
+      </div>
+    {%- endif -%}
+
+    {%- if form.posted_successfully? -%}
+      <div
+        class="text-green-600 flex flex-col gap-2 contact-form__success"
+        tabindex="-1"
+        autofocus
+      >
+        {{- 'icon-checkmark.svg' | inline_asset_content -}}
+        {{- 'blocks.contact_form.post_success' | t -}}
+      </div>
+    {%- endif -%}
+
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <fieldset class="w-full fieldset">
+        <legend class="fieldset-legend">
+          <label for="ContactForm-name">{{- 'blocks.contact_form.name' | t -}}</label>
+        </legend>
+        <input
+          type="text"
+          id="ContactForm-name"
+          class="w-full input"
+          autocomplete="name"
+          name="contact[name]"
+          value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          placeholder="{{ 'blocks.contact_form.name' | t }}"
+        >
+      </fieldset>
+
+      <fieldset class="w-full fieldset">
+        <legend class="fieldset-legend">
+          <label for="ContactForm-email">
+            {{- 'blocks.contact_form.email' | t -}}
+            <span aria-hidden="true" class="text-red-600">*</span></label
+          >
+        </legend>
+        <input
+          type="email"
+          id="ContactForm-email"
+          class="w-full input"
+          autocomplete="email"
+          name="contact[email]"
+          spellcheck="false"
+          autocapitalize="off"
+          value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="ContactForm-email-error"
+          {% endif %}
+          placeholder="{{ 'blocks.contact_form.email' | t }}"
+        >
+      </fieldset>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <fieldset class="w-full fieldset">
+        <legend class="fieldset-legend">
+          <label for="ContactForm-phone">{{- 'blocks.contact_form.phone' | t -}}</label>
+        </legend>
+        <input
+          type="tel"
+          id="ContactForm-phone"
+          class="w-full input"
+          autocomplete="tel"
+          name="contact[phone]"
+          pattern="[0-9\-]*"
+          value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          placeholder="{{ 'blocks.contact_form.phone' | t }}"
+        >
+      </fieldset>
+    </div>
+
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <fieldset class="w-full fieldset">
+        <legend class="fieldset-legend">
+          <label for="ContactForm-body">{{- 'blocks.contact_form.comment' | t -}}</label>
+        </legend>
+        <textarea
+          rows="10"
+          id="ContactForm-body"
+          class="w-full textarea h-24"
+          name="contact[body]"
+          placeholder="{{ 'blocks.contact_form.comment' | t }}"
+        >{{- form.body -}}</textarea>
+      </fieldset>
+    </div>
+    <div class="flex flex-col md:flex-row md:items-center gap-4 md:max-w-1/3">
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg submit-button"
+        {{ block.shopify_attributes }}
+      >
+        {{ 'blocks.contact_form.button' | t }}
+      </button>
+    </div>
+  {%- endform -%}
+</div>

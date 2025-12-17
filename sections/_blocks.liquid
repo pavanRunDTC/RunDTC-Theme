@@ -1,0 +1,269 @@
+{% schema %}
+{
+  "name": "t:names.blocks",
+  "tag": "section",
+  "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.desktop_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.mobile_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:settings.layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "t:options.horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "t:options.vertical"
+        }
+      ],
+      "default": "vertical"
+    },
+
+    {
+      "type": "select",
+      "id": "gap",
+      "label": "t:settings.gap",
+      "options": [
+        {
+          "value": "gap-0",
+          "label": "t:options.none"
+        },
+        {
+          "value": "gap-4",
+          "label": "t:options.normal"
+        },
+        {
+          "value": "gap-8",
+          "label": "t:options.wide"
+        }
+      ],
+      "default": "gap-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_image",
+      "label": "t:settings.background",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "t:settings.background_media",
+      "visible_if": "{{ section.settings.background_image == true }}",
+      "info": "t:info.background_image_info"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:settings.content_alignment",
+      "options": [
+        {
+          "value": "items-start",
+          "label": "t:options.top"
+        },
+        {
+          "value": "items-center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "items-end",
+          "label": "t:options.bottom"
+        }
+      ],
+      "default": "items-center",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "t:settings.height",
+      "options": [
+        {
+          "value": "h-[]",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "h-[65svh]",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "h-[100svh]",
+          "label": "t:options.full_screen"
+        }
+      ],
+      "default": "h-[65svh]",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle_overlay",
+      "label": "t:settings.media_overlay",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "overlay_style",
+      "label": "t:settings.overlay",
+      "options": [
+        {
+          "value": "solid",
+          "label": "t:options.solid"
+        },
+        {
+          "value": "gradient",
+          "label": "t:options.gradient"
+        }
+      ],
+      "default": "solid",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:settings.overlay_color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "select",
+      "id": "gradient_direction",
+      "label": "t:settings.gradient_direction",
+      "options": [
+        {
+          "value": "to top",
+          "label": "t:options.up"
+        },
+        {
+          "value": "to bottom",
+          "label": "t:options.down"
+        }
+      ],
+      "default": "to bottom",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.overlay_style == 'gradient' and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.blocks"
+    }
+  ]
+}
+{% endschema %}
+{%- liquid
+  assign padding_top_mobile = section.settings.section_padding_top_mobile
+  assign padding_bottom_mobile = section.settings.section_padding_bottom_mobile
+  assign padding_top_desktop = section.settings.section_padding_top
+  assign padding_bottom_desktop = section.settings.section_padding_bottom
+
+  assign classes = section.settings.gap
+  if section.settings.layout == 'horizontal'
+    assign classes = classes | append: ' items-center md:flex-row'
+  endif
+-%}
+<style>
+  .background-image-{{ section.id }} {
+    background-image:url('{{ section.settings.bg_image | image_url }}');
+  }
+  .background-image-{{ section.id }} .media-overlay{
+    background-color: {{ section.settings.overlay_color }};
+    opacity: 0.5;
+  }
+  .background-image-{{ section.id }} .media-gradient{
+    background: linear-gradient(
+      {{ section.settings.gradient_direction }},
+      {{ section.settings.overlay_color }} 0%,
+      transparent 100%
+    );
+  }
+  #shopify-section-{{ section.id }} {
+    --padding-top-desktop: {{ padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ padding_bottom_desktop }}px;
+    --padding-top-mobile: {{ padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ padding_bottom_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .section-wrapper {
+    padding-top: var(--padding-top-desktop);
+    padding-bottom: var(--padding-bottom-desktop);
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-wrapper {
+      padding-top: var(--padding-top-mobile);
+      padding-bottom: var(--padding-bottom-mobile);
+    }
+  }
+  .section-wrapper {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+</style>
+<div class="relative section-wrapper color-{{ section.settings.color_scheme }} {% if section.settings.background_image and section.settings.bg_image != blank %}  {{ section.settings.section_height }} background-image-{{ section.id }} flex {{ section.settings.content_alignment }}  {% endif %} bg-center bg-cover bg-no-repeat">
+  {% if section.settings.bg_image != blank and section.settings.toggle_overlay %}
+    <div
+      class="absolute inset-0 {% if  section.settings.overlay_style == 'solid' %}media-overlay {% elsif section.settings.overlay_style == 'gradient' %}media-gradient{% endif %}"
+    ></div>
+  {% endif %}
+  <div class="container relative flex flex-wrap flex-col w-full {{ classes }}">
+    {% content_for 'blocks' %}
+  </div>
+</div>

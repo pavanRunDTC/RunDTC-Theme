@@ -1,0 +1,71 @@
+{% comment %}
+  Price block
+  - Shows selected variant price when a variant is chosen
+  - Otherwise shows min—max range if available
+  - Falls back to a single price
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "t:names.product_card_price",
+  "tag": "section",
+  "class": "price-block",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_compare",
+      "label": "t:settings.show_compare_price",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_card_price",
+      "category": "t:categories.collection",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Server-side product price -->
+<template x-if="typeof product === 'undefined'" x-cloak>
+  <p class="price">
+    <span class="block text-base">
+      {% if block.settings.show_compare and closest.product.compare_at_price > closest.product.price %}
+        <s class="text-sm line-through pr-2">{{ closest.product.compare_at_price | money }}</s>
+      {% endif %}
+      <span class="text-base font-bold">{{ closest.product.price | money }}</span>
+    </span>
+  </p>
+</template>
+
+
+<template x-if="typeof product !== 'undefined'" x-cloak>
+  <p class="price">
+    <!-- Price range when multiple variant prices exist -->
+    <span
+      x-show="!product.selectedVariant && product.minPrice != null && product.maxPrice != null && product.minPrice !== product.maxPrice"
+      class="block text-base"
+    >
+      <span
+        class="text-base font-bold"
+        x-text="moneyFormatter(product.minPrice) + ' — ' + moneyFormatter(product.maxPrice)"
+      ></span>
+    </span>
+
+    <!-- Single price fallback -->
+    <span
+      x-show="!product.selectedVariant && (product.minPrice != null && (product.maxPrice == null || product.minPrice === product.maxPrice))"
+      class="block text-base"
+    >
+      <s
+        class="text-sm line-through pr-2"
+        x-show="product.variants[0].comparePrice > product.minPrice"
+        x-text="moneyFormatter(product.variants[0].comparePrice)"
+      ></s>
+      <span class="text-base font-bold" x-text="moneyFormatter(product.minPrice)"></span>
+    </span>
+  </p>
+</template>
+ 

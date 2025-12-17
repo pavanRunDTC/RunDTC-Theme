@@ -1,0 +1,85 @@
+{% doc %}
+  Individual accordion item with question and answer.
+
+  Standalone accordion item block for use after accordion container blocks.
+  Contains question text, answer content, and individual styling.
+  Works independently - can be repeated multiple times.
+
+  @example
+  {% render 'accordion-item', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.accordion_item",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "question",
+      "label": "t:settings.question",
+      "default": "t:text_defaults.accordion_item"
+    },
+    {
+      "type": "richtext",
+      "id": "answer",
+      "label": "t:settings.answer",
+      "default": "t:html_defaults.accordion_content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.accordion_row"
+    }
+  ]
+}
+{% endschema %}
+
+{% if block.settings.question != blank and block.settings.answer != blank %}
+<div
+  class="accordion-item border-b border-gray-200 last:border-b-0"
+  x-data="{
+    isOpen: false,
+    init() {
+      // Check if this is the first accordion item and parent has openFirstByDefault enabled
+      const parent = this.$el.closest('.accordion-container');
+      const parentData = Alpine.$data(parent);
+      const isFirstChild = this.$el.parentElement.children[0] === this.$el;
+
+      if (parentData && parentData.openFirstByDefault && isFirstChild) {
+        this.isOpen = true;
+      }
+    }
+  }"
+>
+  <button
+    type="button"
+    class="w-full py-6 px-0 flex items-center justify-between text-left bg-transparent border-0 cursor-pointer group hover:text-gray-600 transition-colors duration-200 focus:outline-none focus:text-gray-600"
+    @click="isOpen = !isOpen"
+    :aria-expanded="isOpen"
+  >
+    <div class="h5 font-medium text-gray-900 group-hover:text-gray-600 transition-colors duration-200 pr-4">
+      {{ block.settings.question | escape }}
+    </div>
+    <div
+      class="flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-500 group-hover:text-gray-600 transition-all duration-300"
+    >
+      <span x-show="isOpen">
+        {% render 'utility-icon', name: 'minus', class: 'w-5 h-5' %}
+      </span>
+      <span x-show="!isOpen">
+        {% render 'utility-icon', name: 'plus', class: 'w-5 h-5' %}
+      </span>
+    </div>
+  </button>
+
+  <div
+    class="overflow-hidden transition-all duration-300 ease-in-out"
+    :class="isOpen ? 'max-h-96 pb-6' : 'max-h-0 pb-0'"
+  >
+    <div class="prose max-w-none text-gray-700 leading-relaxed">
+      {{ block.settings.answer }}
+    </div>
+  </div>
+</div>
+{% endif %}

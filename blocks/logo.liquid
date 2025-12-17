@@ -1,0 +1,70 @@
+{% schema %}
+{
+  "name": "t:names.logo",
+  "tag": null,
+  "settings": [
+    {
+      "type":"image_picker",
+      "id":"footer_logo",
+      "label": "t:settings.logo_image"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "t:settings.logo_url"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "t:settings.logo_height",
+      "min": 12,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 36,
+      "info": "t:info.logo_height"
+    },
+    {
+      "type":"select",
+      "id":"logo_position",
+      "label": "t:settings.alignment",
+      "options": [
+        { "value": "justify-start", "label": "t:options.left" },
+        { "value": "justify-center", "label": "t:options.center" },
+        { "value": "justify-end", "label": "t:options.right" }
+      ],
+      "default": "justify-start"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text"
+    },
+    {
+      "type": "newsletter"
+    },
+    {
+      "type": "social"
+    },
+    {
+      "type": "empty-space"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.logo",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}
+
+{% if block.settings.footer_logo %}
+  <div class="logo-section w-full h-auto flex flex-wrap {{ block.settings.logo_position }}">
+    {% render 'utility-image', image: block.settings.footer_logo, url: block.settings.logo_link, height: block.settings.logo_height %}
+    {% if block.blocks.size > 0 %}
+      {% content_for 'blocks' %}
+    {% endif %}
+  </div>
+{% endif %}
+

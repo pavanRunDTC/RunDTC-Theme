@@ -1,0 +1,41 @@
+{% schema %}
+{
+  "name": "t:names.social",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.social_media"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.social",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="flex items-center gap-3 mt-2">
+  {% if shop.brand.metafields.social_links.facebook.value %}
+    <a
+      href="{{ shop.brand.metafields.social_links.facebook.value }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Facebook"
+    >
+      {% render 'utility-icon', name: 'facebook', class: 'size-8' %}
+    </a>
+  {% endif %}
+  {% if shop.brand.metafields.social_links.linkedin.value %}
+    <a
+      href="{{ shop.brand.metafields.social_links.linkedin.value }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn"
+    >
+      {% render 'utility-icon', name: 'linkedin', class: 'size-8' %}
+    </a>
+  {% endif %}
+</div>

@@ -1,0 +1,25 @@
+{% schema %}
+{
+  "name": "t:names.spacer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "height",
+      "label": "t:settings.height",
+      "min": 0,
+      "max": 20,
+      "step": 0.5,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.spacer",
+      "category": "t:categories.layout"
+    }
+  ]
+}
+{% endschema %}
+<div style="height: {{ block.settings.height | default: 20 }}px;" {{ block.shopify_attributes }}></div>

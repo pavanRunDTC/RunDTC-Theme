@@ -1,0 +1,24 @@
+<div
+  x-show="toast.visible"
+  class="fixed top-5 end-3 transform  max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-800 dark:border-neutral-700 z-50"
+  role="alert"
+  tabindex="-1"
+  aria-labelledby="toast-label"
+  x-cloak
+>
+  <div class="flex p-4">
+    <div class="shrink-0" x-show="toast.type === 'success'">
+      {% render 'utility-icon', name: 'toast_success', class: 'shrink-0 size-4 text-teal-500 mt-0.5' %}
+    </div>
+    <div class="shrink-0" x-show="toast.type === 'error'">
+      {% render 'utility-icon', name: 'toast_error', class: 'shrink-0 size-4 text-teal-500 mt-0.5' %}
+    </div>
+    <div class="ms-3">
+      <p
+        id="hs-toast-error-example-label"
+        class="text-xs text-gray-700 dark:text-neutral-400"
+        x-text="toast.message"
+      ></p>
+    </div>
+  </div>
+</div>

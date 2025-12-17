@@ -1,0 +1,237 @@
+{% doc %}
+  A responsive image block with customizable display options, linking capabilities, and alignment controls.
+
+  This block provides settings for image selection, optional URL linking, alignment, width options,
+  aspect ratio control, and crop positioning. It uses the utility-image snippet for optimal
+  responsive image rendering with proper srcset generation.
+
+  @example
+  {% render 'image', block: block %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:names.image"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "t:settings.image"
+    },
+    {
+      "id": "image_url",
+      "type": "url",
+      "label": "t:settings.image_url",
+      "info": "t:info.link"
+    },
+    {
+      "id": "image_alt",
+      "type": "text",
+      "label": "t:settings.alt_text",
+      "info": "t:info.alt_text"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "id": "image_alignment",
+      "type": "select",
+      "label": "t:settings.alignment",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ]
+    },
+    {
+      "id": "image_width",
+      "type": "select",
+      "label": "t:settings.image_width",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.full_width"
+        },
+        {
+          "value": "half_width",
+          "label": "t:options.half_width"
+        },
+        {
+          "value": "quarter_width",
+          "label": "t:options.quarter_width"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:content.display_settings"
+    },
+    {
+      "id": "aspect_ratio",
+      "type": "select",
+      "label": "t:settings.aspect_ratio",
+      "default": "natural",
+      "options": [
+        {
+          "value": "natural",
+          "label": "t:options.natural"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:options.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.landscape"
+        },
+        {
+          "value": "wide",
+          "label": "t:options.wide"
+        }
+      ]
+    },
+    {
+      "id": "crop_position",
+      "type": "select",
+      "label": "t:settings.crop_position",
+      "visible_if": "{{ block.settings.aspect_ratio != 'natural' }}",
+      "default": "center",
+      "options": [
+        {
+          "value": "top",
+          "label": "t:options.top"
+        },
+        {
+          "value": "center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "bottom",
+          "label": "t:options.bottom"
+        },
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.image",
+      "category": "t:categories.basic"
+    }
+  ]
+}
+{% endschema %}
+
+{%- liquid
+  # Set image variables
+  assign image = block.settings.image
+  assign image_url = block.settings.image_url
+  assign image_alt = block.settings.image_alt
+  assign image_alignment = block.settings.image_alignment
+  assign image_width = block.settings.image_width
+  assign aspect_ratio = block.settings.aspect_ratio
+  assign crop_position = block.settings.crop_position
+
+  # Set aspect ratio dimensions
+  assign width = null
+  assign height = null
+  assign crop = null
+
+  case aspect_ratio
+    when 'square'
+      assign width = 800
+      assign height = 800
+      assign crop = crop_position
+    when 'portrait'
+      assign width = 600
+      assign height = 800
+      assign crop = crop_position
+    when 'landscape'
+      assign width = 800
+      assign height = 600
+      assign crop = crop_position
+    when 'wide'
+      assign width = 1200
+      assign height = 600
+      assign crop = crop_position
+  endcase
+
+  # Set width classes based on image_width setting
+  assign width_classes = ''
+  case image_width
+    when 'full_width'
+      assign width_classes = 'w-full'
+    when 'half_width'
+      assign width_classes = 'w-1/2'
+    when 'quarter_width'
+      assign width_classes = 'w-1/4'
+    else
+      assign width_classes = 'w-auto'
+  endcase
+
+  # Set alignment classes
+  assign alignment_classes = ''
+  case image_alignment
+    when 'center'
+      assign alignment_classes = 'mx-auto'
+    when 'right'
+      assign alignment_classes = 'ml-auto'
+    else
+      assign alignment_classes = ''
+  endcase
+
+  # Combine classes
+  assign container_classes = 'block-image ' | append: width_classes | append: ' ' | append: alignment_classes
+
+  # Use custom alt text if provided, otherwise fall back to image alt
+  assign alt_text = image_alt
+  if alt_text == blank and image.alt != blank
+    assign alt_text = image.alt
+  endif
+-%}
+
+{%- if image -%}
+  <div class="{{ container_classes | strip }}" {{ block.shopify_attributes }}>
+    {% render 'utility-image',
+      image: image,
+      url: image_url,
+      class: 'image-block',
+      image_class: 'w-full h-auto object-cover',
+      width: width,
+      height: height,
+      crop: crop
+    %}
+  </div>
+{%- endif -%}

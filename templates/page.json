@@ -1,0 +1,41 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section": {
+      "type": "section",
+      "blocks": {
+        "text_9cbjXT": {
+          "type": "text",
+          "name": "Content",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Lorem ipsum",
+            "field_richtext": "<h1>{{ closest.page.title }}</h1>{{ closest.page.content }}",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "article"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_9cbjXT"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "section"
+  ]
+}

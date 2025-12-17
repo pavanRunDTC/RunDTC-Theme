@@ -1,0 +1,226 @@
+{% doc %}
+  This snippet displays the product media gallery, including images and videos.
+
+  @param {product} product - The product object
+  @param {boolean} slider - Whether to display the media in a slider format
+
+  @example {% render 'product-media', product: product, slider: true %}
+{% enddoc %}
+
+{% liquid
+  assign slider = slider | default: false
+  assign product = product | default: product
+%}
+
+{% if slider %}
+  <div
+    class="w-full relative"
+    role="group"
+  >
+    <button
+      type="button"
+      class="group flex absolute top-1/2 -translate-y-1/2 left-5 z-10 items-center justify-center w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 border border-white/20 hover:bg-white hover:scale-110 cursor-pointer"
+      style="display: none;"
+      x-show="hasPrevious"
+      @click="goToPrevious()"
+      aria-label="{{ 'general.carousel.previous' | t }}"
+    >
+      <span class="text-gray-800">
+        {% render 'utility-icon', name: 'arrow_left', class: 'w-5 h-5' %}
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="group flex absolute top-1/2 -translate-y-1/2 right-5 z-10 items-center justify-center w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 border border-white/20 hover:bg-white hover:scale-110 cursor-pointer"
+      style="display: none;"
+      x-show="hasNext"
+      @click="goToNext()"
+      aria-label="{{ 'general.carousel.next' | t }}"
+    >
+      <span class="text-gray-800">
+        {% render 'utility-icon', name: 'arrow_right', class: 'w-5 h-5' %}
+      </span>
+    </button>
+
+    <div class="splide w-full" x-ref="splideproduct">
+      <div class="splide__track w-full">
+        <ul class="splide__list w-full">
+          {% for media in product.media %}
+            <li class="splide__slide w-full aspect-square rounded-4xl overflow-hidden">
+              {% if media.media_type == 'image' %}
+                <div class="relative w-full h-full overflow-hidden" x-data="imageZoom()">
+                  <div class="w-full h-full cursor-pointer group" @click="openModal = true">
+                    {% render 'utility-image',
+                      image: media,
+                      class: 'w-full h-full object-cover pointer-events-none',
+                      image_class: 'w-full h-full object-cover'
+                    %}
+
+                    <!-- Enlarge Icon Overlay -->
+                    <div class="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-800">
+                      {% render 'utility-icon', name: 'enlarge', class: 'w-5 h-5' %}
+                    </div>
+                  </div>
+
+                  <!-- Fullscreen Modal -->
+                  <template x-teleport="body">
+                  <div x-show="openModal"
+                       x-transition.opacity
+                       class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+                       style="display: none;">
+
+                    <!-- Close Button -->
+                    <button type="button"
+                            @click="openModal = false; reset()"
+                            class="absolute top-5 right-5 z-[10000] p-2 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full cursor-pointer">
+                      {% render 'utility-icon', name: 'close', class: 'w-8 h-8' %}
+                    </button>
+
+                    <!-- Zoomable Image Container -->
+                    <div class="relative w-full h-full overflow-auto flex items-center justify-center">
+                      <div class="transition-transform duration-75 ease-out flex items-center justify-center"
+                           :style="`transform: scale(${scale}) translate(${pointX}px, ${pointY}px); cursor: ${scale > 1 ? 'grab' : 'default'}; min-width: ${scale > 1 ? '150%' : '100%'}; min-height: ${scale > 1 ? '150%' : '100%'}`"
+                           @mousedown="startDrag($event)"
+                           @touchstart="startDrag($event)"
+                           @mousemove.window="onDrag($event)"
+                           @touchmove.window="onDrag($event)"
+                           @mouseup.window="endDrag()"
+                           @touchend.window="endDrag()">
+                        {% render 'utility-image',
+                          image: media,
+                          class: 'object-contain pointer-events-none',
+                          image_class: 'max-w-[90vw] max-h-[90vh] object-contain pointer-events-none',
+                          width: 2000
+                        %}
+                      </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/50 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 z-[10000]" @click.stop @touchstart.stop>
+                      <button type="button" @click="updateScale(Math.max(1, scale - 0.5))" class="w-8 h-8 flex items-center justify-center text-white hover:text-blue-200 transition-colors cursor-pointer" aria-label="Zoom out">
+                        {% render 'utility-icon', name: 'minus', class: 'w-5 h-5' %}
+                      </button>
+
+                      <input
+                        type="range"
+                        min="1"
+                        max="4"
+                        step="0.1"
+                        x-model="scale"
+                        @input="updateScale($event.target.value)"
+                        class="w-32 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer accent-white"
+                        aria-label="Zoom level"
+                      >
+
+                      <button type="button" @click="updateScale(Math.min(4, scale + 0.5))" class="w-8 h-8 flex items-center justify-center text-white hover:text-blue-200 transition-colors cursor-pointer" aria-label="Zoom in">
+                         {% render 'utility-icon', name: 'plus', class: 'w-5 h-5' %}
+                      </button>
+                    </div>
+                  </div>
+                  </template>
+                </div>
+              {% elsif media.media_type == 'video' %}
+                <div class="w-full h-full">
+                  {{ media | video_tag: class: 'w-full h-full object-cover' }}
+                </div>
+              {% elsif media.media_type == 'external_video' %}
+                <div class="w-full h-full">
+                  {{ media | external_video_tag: class: 'w-full h-full object-cover' }}
+                </div>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+  <div class="grid grid-cols-2 gap-10">
+    {% for media in product.media %}
+      <div class="rounded-4xl overflow-hidden {% if forloop.first %}col-span-2{% endif %}">
+        {% case media.media_type %}
+          {% when 'image' %}
+            <div class="relative w-full h-full overflow-hidden" x-data="imageZoom()">
+              <div class="w-full h-full cursor-pointer group" @click="openModal = true">
+                {% render 'utility-image',
+                  image: media,
+                  class: 'w-full h-full object-cover pointer-events-none',
+                  image_class: 'w-full h-full object-cover'
+                %}
+
+                <!-- Enlarge Icon Overlay -->
+                <div class="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-800">
+                  {% render 'utility-icon', name: 'enlarge', class: 'w-5 h-5' %}
+                </div>
+              </div>
+
+              <!-- Fullscreen Modal -->
+              <template x-teleport="body">
+                <div x-show="openModal"
+                     x-transition.opacity
+                     class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm"
+                     style="display: none;">
+
+                  <!-- Close Button -->
+                  <button type="button"
+                          @click="openModal = false; reset()"
+                          class="absolute top-5 right-5 z-[10000] p-2 text-white hover:text-gray-300 transition-colors bg-black/50 rounded-full cursor-pointer">
+                    {% render 'utility-icon', name: 'close', class: 'w-8 h-8' %}
+                  </button>
+
+                  <!-- Zoomable Image Container -->
+                  <div class="relative w-full h-full overflow-auto flex items-center justify-center">
+                    <div class="transition-transform duration-75 ease-out flex items-center justify-center"
+                         :style="`transform: scale(${scale}) translate(${pointX}px, ${pointY}px); cursor: ${scale > 1 ? 'grab' : 'default'}; min-width: ${scale > 1 ? '150%' : '100%'}; min-height: ${scale > 1 ? '150%' : '100%'}`"
+                         @mousedown="startDrag($event)"
+                         @touchstart="startDrag($event)"
+                         @mousemove.window="onDrag($event)"
+                         @touchmove.window="onDrag($event)"
+                         @mouseup.window="endDrag()"
+                         @touchend.window="endDrag()">
+                      {% render 'utility-image',
+                        image: media,
+                        class: 'object-contain pointer-events-none',
+                        image_class: 'max-w-[90vw] max-h-[90vh] object-contain pointer-events-none',
+                        width: 2000
+                      %}
+                    </div>
+                  </div>
+
+                  <!-- Controls -->
+                  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-black/50 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 z-[10000]" @click.stop @touchstart.stop>
+                    <button type="button" @click="updateScale(Math.max(1, scale - 0.5))" class="w-8 h-8 flex items-center justify-center text-white hover:text-blue-200 transition-colors cursor-pointer" aria-label="Zoom out">
+                      {% render 'utility-icon', name: 'minus', class: 'w-5 h-5' %}
+                    </button>
+
+                    <input
+                      type="range"
+                      min="1"
+                      max="4"
+                      step="0.1"
+                      x-model="scale"
+                      @input="updateScale($event.target.value)"
+                      class="w-32 h-1 bg-white/30 rounded-lg appearance-none cursor-pointer accent-white"
+                      aria-label="Zoom level"
+                    >
+
+                    <button type="button" @click="updateScale(Math.min(4, scale + 0.5))" class="w-8 h-8 flex items-center justify-center text-white hover:text-blue-200 transition-colors cursor-pointer" aria-label="Zoom in">
+                       {% render 'utility-icon', name: 'plus', class: 'w-5 h-5' %}
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </div>
+          {% when 'video' %}
+            {{ media | video_tag: class: 'w-full h-full object-cover' }}
+          {% when 'external_video' %}
+            {{ media | external_video_tag: class: 'w-full h-full object-cover' }}
+        {% endcase %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+

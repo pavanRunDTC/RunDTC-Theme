@@ -1,0 +1,28 @@
+{% doc %}
+  Renders an SVG icon from assets with customizable class and attributes.
+
+  @param name - {string} Required. The name of the SVG file (without extension) to inline
+  @param [class] - {string} Optional. CSS classes to add to the SVG element
+  @param [attr] - {string} Optional. Additional attributes to add to the SVG element
+
+  Usage: {% render 'utility_icon', name: 'search', class: 'size-6' %} {% render 'utility_icon', name: 'search', class:
+  'size-6', attr: 'aria-label="Search"' %}
+{% enddoc %}
+
+{%- liquid
+  assign class = class | default: 'size-6'
+  assign attr = attr | default: ''
+  assign asset_name = 'icon_' | append: name | append: '.svg'
+  assign svg_content = asset_name | inline_asset_content
+  assign svg_tag = '<svg '
+
+  if svg_content contains svg_tag
+    assign svg_attributes = svg_tag | append: 'class="' | append: class | append: '" ' | append: attr | append: ' '
+
+    assign svg_content = svg_content | replace_first: svg_tag, svg_attributes
+
+    echo svg_content
+  else
+    echo '<!-- Icon not found: ' | append: asset_name | append: ' -->'
+  endif
+-%}

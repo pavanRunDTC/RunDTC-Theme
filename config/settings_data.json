@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "logo": "shopify://shop_images/blue-black.png",
+    "logo_height": 80,
+    "logo_height_mobile": 40,
+    "favicon": "shopify://shop_images/a4d8bc_b7024f39a30d49c9b3baec8d6d7a30ef_mv2.jpg",
+    "body_font": "source_sans_pro_n4",
+    "heading_font": "playfair_display_n5",
+    "base_font_size": 18,
+    "h1_font_size": 64,
+    "h2_font_size": 52,
+    "h3_font_size": 42,
+    "h4_font_size": 32,
+    "h5_font_size": 22,
+    "h6_font_size": 18,
+    "h1_font_size_mobile": 48,
+    "h2_font_size_mobile": 38,
+    "h3_font_size_mobile": 32,
+    "h4_font_size_mobile": 24,
+    "h5_font_size_mobile": 20,
+    "h6_font_size_mobile": 16,
+    "storefront_access_token": "32815987b048f8e3cc06ed3bfb8514ac",
+    "subheading_font": "almarai_n4",
+    "sections": {
+      "mini-cart": {
+        "type": "mini-cart",
+        "settings": {
+          "continue_shopping_url": "shopify://collections/all"
+        }
+      }
+    },
+    "content_for_index": [],
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#ffffff",
+          "foreground": "#101111",
+          "primary_button_background": "#0dcfe5",
+          "primary_button_text": "#011a46",
+          "secondary_button_background": "#ffffff",
+          "secondary_button_text": "#011a46"
+        }
+      },
+      "scheme-dc2a30cb-a0a2-4ef2-984b-261e4bb4d0af": {
+        "settings": {
+          "background": "#bdf4fa",
+          "foreground": "#101111",
+          "primary_button_background": "#ffffff",
+          "primary_button_text": "#101111",
+          "secondary_button_background": "#ffffff",
+          "secondary_button_text": "#101111"
+        }
+      },
+      "scheme-f16b70f4-68de-4556-b3a9-3df6370d7ae8": {
+        "settings": {
+          "background": "#011a46",
+          "foreground": "#ffffff",
+          "primary_button_background": "#0dcfe5",
+          "primary_button_text": "#011a46",
+          "secondary_button_background": "#ffffff",
+          "secondary_button_text": "#011a46"
+        }
+      },
+      "scheme-c5d404f3-cedf-4a73-bf12-18d71df63018": {
+        "settings": {
+          "background": "#f7f7f7",
+          "foreground": "#3c3e3e",
+          "primary_button_background": "#0dcfe5",
+          "primary_button_text": "#011a46",
+          "secondary_button_background": "#ffffff",
+          "secondary_button_text": "#011a46"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"build.main.min.js","sources":["../src/js/entrypoints/main.js"],"sourcesContent":["import Alpine from 'alpinejs';\nimport AsyncAlpine from 'async-alpine';\n\nAlpine.plugin(AsyncAlpine);\n"],"names":["Alpine","plugin","AsyncAlpine"],"mappings":";;;;;;2DAGAA,EAAOC,OAAOC"}

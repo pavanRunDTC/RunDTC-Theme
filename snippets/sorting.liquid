@@ -1,0 +1,39 @@
+<div class="flex justify-end sm:self-baseline">
+  <div
+    x-data="{ open: filteropen, selectedSort: sortOptions.find(o => o.key === currentSort.key) || sortOptions[0] }" x-init="
+  $watch('currentSort', value => {
+    selectedSort = sortOptions.find(o => o.key === value.key) || sortOptions[0];
+  })
+"
+    class="relative inline-block text-left"
+  >
+    <span @click="open = !open"
+    class="flex items-center pb-1  text-sm transition cursor-pointer">
+      <span class="font-bold" x-text="`{{ 'general.sortTxt.heading' | t }}`"></span>
+      {% render 'utility-icon', name: 'arrow_top', class: 'h-5 w-5 transform transition-transform duration-200', attr: ':class="[open ? `rotate-180` : `rotate-0`]"' %}
+    </span>
+
+    <!-- Dropdown Menu -->
+    <div x-show="open"
+         x-transition.origin.top
+         @click.away="open = false"
+         class="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50"  x-cloak>
+      <ul class="py-1">
+        <template x-for="option in sortOptions" :key="option.key">
+          <li>
+            <button @click="
+              selectedSort = option;
+              currentSort = option;
+              open = false;
+              applySort(option); // your function to sort products
+            "
+            class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            :class="{ 'font-semibold': currentSort.key === option.key }"
+            x-text="locale[option.labelkey]">
+            </button>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </div>
+</div>

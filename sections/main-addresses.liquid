@@ -1,0 +1,212 @@
+{% schema %}
+{
+  "name": "t:names.main-addresses",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.desktop_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.mobile_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["customers/addresses"]
+  }
+}
+{% endschema %}
+{%- liquid
+  assign padding_top_mobile = section.settings.section_padding_top_mobile
+  assign padding_bottom_mobile = section.settings.section_padding_bottom_mobile
+  assign padding_top_desktop = section.settings.section_padding_top
+  assign padding_bottom_desktop = section.settings.section_padding_bottom
+-%}
+<style>
+  #shopify-section-{{ section.id }} {
+    --padding-top-desktop: {{ padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ padding_bottom_desktop }}px;
+    --padding-top-mobile: {{ padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ padding_bottom_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .section-wrapper {
+    padding-top: var(--padding-top-desktop);
+    padding-bottom: var(--padding-bottom-desktop);
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-wrapper {
+      padding-top: var(--padding-top-mobile);
+      padding-bottom: var(--padding-bottom-mobile);
+    }
+  }
+</style>
+{%- paginate customer.addresses by 5 -%}
+  <div class="section-wrapper color-{{ section.settings.color_scheme }}">
+  <div
+    class="container customer addresses section section--narrow text-center max-w-md mx-auto"
+    data-customer-addresses
+    x-data="{ show: false }"
+    x-cloak
+  >
+    <h2 class="font-bold mb-6">{{ 'customer.addresses.title' | t }}</h2>
+    <div class="mb-6">
+      <a class="btn-link underline" href="{{ routes.account_url }}">
+        {{ 'customer.account.return' | t }}
+      </a>
+    </div>
+
+    <div
+      class="mb-6"
+      data-address
+      x-data="{ province: [], address: {{ customer.addresses[0] | json | escape }}, activeEditId: null }"
+    >
+      <button
+        class="btn btn-primary btn-black"
+        type="button"
+        aria-expanded="false"
+        aria-controls="AddAddress"
+        @click.prevent="show = !show"
+      >
+        {{ 'customer.addresses.add_new' | t }}
+      </button>
+      {% render 'add-new-address', customer: customer %}
+    </div>
+
+    <ul role="list">
+      {%- for address in customer.addresses -%}
+        <li
+          class="text-center mb-6 p-4 border border-solid border-gray-300 bg-gray-200"
+          data-address
+          x-data="{ province: [], address: {{ address | json | escape }}, activeEditId: null }"
+        >
+          <div class="space-y-2 mb-6">
+            {%- if address == customer.default_address -%}
+              <h5 class="text-base font-semibold tracking-widest">
+                {{ 'customer.addresses.default' | t }}
+              </h5>
+            {%- endif -%}
+            {{ address | format_address }}
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <button
+              type="button"
+              class="btn btn-primary flex-col"
+              id="EditFormButton_{{ address.id }}"
+              aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
+              aria-controls="EditAddress_{{ address.id }}"
+              aria-expanded="false"
+              data-address-id="{{ address.id }}"
+              @click.prevent="activeEditId = activeEditId === {{ address.id }} ? null : {{ address.id }}"
+            >
+              {{ 'customer.addresses.edit' | t }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary flex-col"
+              aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
+              @click="await window.confirm('{{ 'customer.addresses.delete_confirm' | t }}') && fetch('{{ address.url }}', { method: 'DELETE' }).then(() => window.location.reload())"
+            >
+              {{ 'customer.addresses.delete' | t }}
+            </button>
+          </div>
+          {% render 'edit-address', address: address %}
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- if paginate.pages > 1 -%}
+      {%- if paginate.parts.size > 0 -%}
+        <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+          <ul role="list">
+            {%- if paginate.previous -%}
+              <li>
+                <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                  <span class="svg-wrapper">
+                   {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+                  </span>
+                </a>
+              </li>
+            {%- endif -%}
+
+            {%- for part in paginate.parts -%}
+              <li>
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                    {{- part.title -}}
+                  </a>
+                {%- else -%}
+                  {%- if part.title == paginate.current_page -%}
+                    <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                      {{- part.title -}}
+                    </span>
+                  {%- else -%}
+                    <span>{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+
+            {%- if paginate.next -%}
+              <li>
+                <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
+                  <span class="svg-wrapper">
+                     {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+                  </span>
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
+{%- endpaginate -%}
+

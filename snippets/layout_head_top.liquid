@@ -1,0 +1,33 @@
+{% doc %}
+  Layout > Head > Top
+
+  Renders the bulk of the head section for all layouts in the theme.
+  This snippet includes the meta tags, favicon, and CSS files.
+  Renders before the `content_for_header` value.
+{% enddoc %}
+
+<script type="application/json" data-ajax-cart-initial-state>
+  {{ cart | json }}
+</script>
+
+{% # Main CSS Build %}
+{{ 'build.tailwind.css' | asset_url | stylesheet_tag: preload: true }}
+{% render 'layout_color_schema' %}
+{% render 'layout_typography_font' %}
+
+{% # Preload JS Modules %}
+<script type="module" src="{{ 'build.main.min.js' | asset_url }}"></script>
+<link rel="modulepreload" href="{{ 'build.init.min.js' | asset_url }}">
+
+{% # theme-check-disable-next-line RemoteAsset %}
+{%- if settings.favicon != blank -%}
+  <link
+    rel="icon"
+    type="image/png"
+    href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+  >
+{%- endif -%}
+
+{% render 'layout_head_meta' %}
+
+{% # content_for_header value will render after this file %}

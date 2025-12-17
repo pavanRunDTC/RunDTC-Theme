@@ -1,0 +1,64 @@
+{% doc %}
+  Renders the site logo with responsive sizing for desktop and mobile.
+
+  This snippet handles:
+  - Desktop and mobile logo sizes based on theme settings
+  - Fallback to store name if no logo is set
+
+  @param {string} [section_id] - The section ID for CSS scoping
+  @param {string} [class] - Optional additional classes for the wrapper
+
+  @example
+  {% render 'utility_logo', section_id: section.id %}
+  {% render 'utility_logo', section_id: section.id, class: 'my-custom-class' %}
+{% enddoc %}
+
+{%- liquid
+  assign desktop_height = settings.logo_height
+  assign mobile_height = settings.logo_height_mobile
+-%}
+
+{% if settings.logo %}
+  <style>
+    #shopify-section-{{ section_id }} {
+      --logo-desktop-height: {{ desktop_height }}px;
+      --logo-mobile-height: {{ mobile_height }}px;
+    }
+
+    #shopify-section-{{ section_id }} .header-logo img {
+      height: var(--logo-desktop-height);
+      width: auto;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      #shopify-section-{{ section_id }} .header-logo img {
+        height: var(--logo-mobile-height);
+      }
+    }
+  </style>
+  <div class="header-logo {{ class }}">
+    {% if template.name == 'index' %}
+      {% render 'utility_image',
+        image: settings.logo,
+        class: 'inline-block',
+        image_class: 'w-auto h-auto max-h-full object-contain'
+      %}
+    {% else %}
+      {% render 'utility_image',
+        image: settings.logo,
+        url: routes.root_url,
+        class: 'inline-block',
+        image_class: 'w-auto h-auto max-h-full object-contain'
+      %}
+    {% endif %}
+  </div>
+{% else %}
+  {% if template.name == 'index' %}
+    <span class="inline-block {{ class }}">{{ shop.name }}</span>
+  {% else %}
+    <a href="{{ routes.root_url }}" class="inline-block {{ class }}">
+      {{ shop.name }}
+    </a>
+  {% endif %}
+{% endif %}

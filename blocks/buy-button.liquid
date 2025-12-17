@@ -1,0 +1,94 @@
+{% schema %}
+{
+  "name": "t:names.product_buy_buttons",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:settings.product_buy_buttons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity_selector",
+      "label": "t:settings.show_quantity_selector",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "t:settings.checkout_buttons",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_buy_buttons",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+<ajax-cart-product-form>
+  <form action="{{ routes.cart_add_url }}" method="post">
+    <input
+      type="hidden"
+      name="id"
+      value="{{ product.selected_or_first_available_variant.id }}"
+      :value="variantId"
+      x-ref="variantInput"
+      x-init="$watch('variantId', value => { $refs.variantInput.value = value; $refs.variantInput.setAttribute('value', value); })"
+    >
+    <div class="flex items-center gap-4 w-full">
+      {% if block.settings.show_quantity_selector %}
+        <div class="quantity-selector flex items-center gap-2 rounded border border-gray-300 bg-white">
+          <button
+            type="button"
+            :class="quantityValue <= 1 ? 'px-2 cursor-not-allowed opacity-50' : 'px-2 cursor-pointer'"
+            :disabled="quantityValue <= 1"
+            @click="quantityValue = Math.max(1, quantityValue - 1)"
+          >
+            {% render 'utility-icon', name: 'minus', class: 'size-4' %}
+          </button>
+          <input
+            type="number"
+            id="Quantity-{{ block.id }}"
+            name="quantity"
+            min="1"
+            x-model.number="quantityValue"
+            class="
+              w-16 h-12 text-center [appearance:textfield] bg-transparent
+              [&::-webkit-outer-spin-button]:m-0
+              [&::-webkit-outer-spin-button]:appearance-none
+              [&::-webkit-inner-spin-button]:m-0
+              [&::-webkit-inner-spin-button]:appearance-none
+            "
+          >
+          <button
+            type="button"
+            class="px-2 cursor-pointer"
+            @click="quantityValue = quantityValue + 1"
+          >
+            {% render 'utility-icon', name: 'plus', class: 'size-4' %}
+          </button>
+        </div>
+      {% else %}
+        <input
+          type="hidden"
+          name="quantity"
+          value="1"
+        >
+      {% endif %}
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg flex-1 whitespace-nowrap"
+        :disabled="!variantId || !selectedVariantAvailable"
+      >
+        <span x-text="!variantId || !selectedVariantAvailable ? soldOutText : addToCartText">
+          {{ 'general.product.add_to_cart' | t }}
+        </span>
+      </button>
+    </div>
+    <div class="mt-4" data-ajax-cart-errors="form"></div>
+  </form>
+</ajax-cart-product-form>

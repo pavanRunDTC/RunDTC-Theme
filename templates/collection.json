@@ -1,0 +1,127 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section": {
+      "type": "section",
+      "blocks": {
+        "text_iW98EM": {
+          "type": "text",
+          "name": "Collection Title",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "{{ collection.title }}",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h1",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_nkA64V": {
+          "type": "text",
+          "name": "Collection Description",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "",
+            "field_richtext": "{{ collection.description }}",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_iW98EM",
+        "text_nkA64V"
+      ],
+      "name": "Collection Banner",
+      "settings": {
+        "color_scheme": "scheme-f16b70f4-68de-4556-b3a9-3df6370d7ae8",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": true,
+        "bg_image": "{{ collection.image }}",
+        "content_alignment": "items-center",
+        "section_height": "h-[100svh]",
+        "toggle_overlay": true,
+        "overlay_style": "solid",
+        "overlay_color": "#0f0f0f",
+        "gradient_direction": "to top"
+      }
+    },
+    "collection_body_AEnHMc": {
+      "type": "collection-body",
+      "blocks": {
+        "prod-card": {
+          "type": "product-card",
+          "static": true,
+          "settings": {
+            "show_badges": true
+          },
+          "blocks": {
+            "product_image_8cyB9Q": {
+              "type": "product-image",
+              "name": "t:block.prod-img.name",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_title_DQA39H": {
+              "type": "product-card-title",
+              "name": "t:block.product-title.name",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_short_description_7fdWHC": {
+              "type": "product-card-short-description",
+              "name": "t:block.short-desc.name",
+              "settings": {},
+              "blocks": {}
+            },
+            "product_card_price_p7yUWj": {
+              "type": "product-card-price",
+              "name": "t:block.prod-price.name",
+              "settings": {
+                "show_compare": true
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_image_8cyB9Q",
+            "product_card_title_DQA39H",
+            "product_card_short_description_7fdWHC",
+            "product_card_price_p7yUWj"
+          ]
+        }
+      },
+      "name": "t:names.collection_body",
+      "settings": {
+        "color_scheme": "",
+        "enable_filter": true,
+        "filter_position": "vertical",
+        "enable_sort": true,
+        "enable_autoload": true,
+        "product_count": 12
+      }
+    }
+  },
+  "order": [
+    "section",
+    "collection_body_AEnHMc"
+  ]
+}

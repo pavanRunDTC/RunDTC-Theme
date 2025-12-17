@@ -1,0 +1,1074 @@
+{% schema %}
+{
+  "name": "t:names.section",
+  "tag": "section",
+  "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.desktop_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:content.mobile_padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "label": "t:settings.section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "label": "t:settings.section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:settings.layout",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "t:options.horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "t:options.vertical"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "select",
+      "id": "gap",
+      "label": "t:settings.gap",
+      "options": [
+        {
+          "value": "gap-0",
+          "label": "t:options.none"
+        },
+        {
+          "value": "gap-4",
+          "label": "t:options.normal"
+        },
+        {
+          "value": "gap-8",
+          "label": "t:options.wide"
+        }
+      ],
+      "default": "gap-4"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_image",
+      "label": "t:settings.background",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "t:settings.background_media",
+      "visible_if": "{{ section.settings.background_image == true }}",
+      "info": "t:info.background_image_info"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Background media (Mobile)",
+      "visible_if": "{{ section.settings.background_image == true }}",
+      "info": "Optional: Upload a different image for mobile devices. If not provided, the desktop image will be used."
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:settings.content_alignment",
+      "options": [
+        {
+          "value": "items-start",
+          "label": "t:options.top"
+        },
+        {
+          "value": "items-center",
+          "label": "t:options.center"
+        },
+        {
+          "value": "items-end",
+          "label": "t:options.bottom"
+        }
+      ],
+      "default": "items-center",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "t:settings.height",
+      "options": [
+        {
+          "value": "h-[]",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "h-[65svh]",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "h-[100svh]",
+          "label": "t:options.full_screen"
+        }
+      ],
+      "default": "h-[65svh]",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle_overlay",
+      "label": "t:settings.media_overlay",
+      "visible_if": "{{ section.settings.background_image == true and section.settings.bg_image != blank }}"
+    },
+    {
+      "type": "select",
+      "id": "overlay_style",
+      "label": "t:settings.overlay",
+      "options": [
+        {
+          "value": "solid",
+          "label": "t:options.solid"
+        },
+        {
+          "value": "gradient",
+          "label": "t:options.gradient"
+        }
+      ],
+      "default": "solid",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "t:settings.overlay_color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    },
+    {
+      "type": "select",
+      "id": "gradient_direction",
+      "label": "t:settings.gradient_direction",
+      "options": [
+        {
+          "value": "to top",
+          "label": "t:options.up"
+        },
+        {
+          "value": "to bottom",
+          "label": "t:options.down"
+        }
+      ],
+      "default": "to bottom",
+      "visible_if": "{{ section.settings.toggle_overlay and section.settings.overlay_style == 'gradient' and section.settings.background_image == true and section.settings.bg_image != blank}}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.hero_banner",
+      "blocks": {
+        "text_GeBHzB": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Elevate Your Everyday Look",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h1",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_JEh9tL": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Elevate your style with curated premium fashion & accessories for her. Discover a meticulously curated collection of high-end clothing and chic accessories that will elevate your fashion game.",
+            "field_richtext": "<p>Elevate your style with curated premium fashion & accessories for her. <br/>Discover a meticulously curated collection of high-end clothing and chic accessories that will elevate your fashion game.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "button_cNJCgm": {
+          "type": "button",
+          "name": "t:block.button.preset.button",
+          "settings": {
+            "button_text": "Explore Women's Collection",
+            "button_style": "btn-secondary",
+            "button_type": "",
+            "button_url": "shopify://collections/womens",
+            "button_target": "_self",
+            "button_alignment": "left",
+            "button_width": "normal"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_GeBHzB",
+        "text_JEh9tL",
+        "button_cNJCgm"
+      ],
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-1",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": true,
+        "bg_image": "shopify://shop_images/womens-banner.jpg",
+        "content_alignment": "items-center",
+        "section_height": "h-[100svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "name": "t:names.rich_text_section",
+      "blocks": {
+        "text_LtVHiF": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Obsessive Attention. Intelligent Effort.",
+            "field_richtext": "<h2>Obsessive Attention. Intelligent Effort.</h2>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_CBMKqd": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Functional handbags made of luxurious materials to improve people's lives in small but mighty ways.",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "button_MMAVfy": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "button_text": "Button",
+            "button_style": "btn-primary",
+            "button_type": "",
+            "button_url": "#",
+            "button_target": "_self",
+            "button_alignment": "center",
+            "button_width": "normal"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_LtVHiF",
+        "text_CBMKqd",
+        "button_MMAVfy"
+      ],
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "name": "t:names.multicolumn",
+      "blocks": {
+        "column_jVe47P": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_f6R7hL": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/SM_2025_KIDS_Q4_EMPLOYEE_tdino_brown2.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_9Kxnzc": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Product #01",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_egQEm6": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_f6R7hL",
+            "text_9Kxnzc",
+            "text_egQEm6"
+          ]
+        },
+        "column_JwW9NG": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_3NYLUH": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/SM_2025_KIDS_Q4_EMPLOYEE_jmads_and_tdino.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_gTwW76": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Product #02",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_U3ddWJ": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_3NYLUH",
+            "text_gTwW76",
+            "text_U3ddWJ"
+          ]
+        },
+        "column_WX7A9w": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_A3cHCg": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/SM_2025_KIDS_Q4_EMPLOYEE_tleana_pink.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_dgFq9K": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Product #03",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_i6MbUb": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_A3cHCg",
+            "text_dgFq9K",
+            "text_i6MbUb"
+          ]
+        },
+        "column_iFgcVg": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_imxUtL": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/SM_2025_KIDS_Q4_EMPLOYEE_jspedstr_pink.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_7GtKL4": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Product #04",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_ataRTt": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_imxUtL",
+            "text_7GtKL4",
+            "text_ataRTt"
+          ]
+        }
+      },
+      "block_order": [
+        "column_jVe47P",
+        "column_JwW9NG",
+        "column_WX7A9w",
+        "column_iFgcVg"
+      ],
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "horizontal",
+        "gap": "gap-0",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "name": "t:names.brand_section",
+      "blocks": {
+        "column_ADAbiJ": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 100,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "text_QLxVCD": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": true,
+                "field_inline_richtext": "Trusted by incredible brands",
+                "field_richtext": "<h3>Trusted by incredible brands</h3>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h2",
+                "text_alignment": "center",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_GQ9KnV": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "With a focus on sustainability, our apparel brands source materials from ethical suppliers",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "center",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_QLxVCD",
+            "text_GQ9KnV"
+          ]
+        },
+        "column_xgEMNV": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_athCnX": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/brand-TM.png",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_athCnX"
+          ]
+        },
+        "column_W7xrnM": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_BqAmym": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/brand-SM.png",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_BqAmym"
+          ]
+        },
+        "column_CPUDBC": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_39Yf8R": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/brand-DB.png",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_39Yf8R"
+          ]
+        },
+        "column_bhagyh": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_y34aUi": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/brand-khaite.png",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_y34aUi"
+          ]
+        }
+      },
+      "block_order": [
+        "column_ADAbiJ",
+        "column_xgEMNV",
+        "column_W7xrnM",
+        "column_CPUDBC",
+        "column_bhagyh"
+      ],
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-dc2a30cb-a0a2-4ef2-984b-261e4bb4d0af",
+        "layout": "horizontal",
+        "gap": "gap-0",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "blocks": {
+        "accordion_XhLe9d": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "title": "Accordion heading",
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_top_mobile": 40,
+            "padding_bottom_mobile": 40,
+            "open_first_by_default": false
+          },
+          "blocks": {
+            "accordion_item_kY7qxN": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content here.</p>"
+              },
+              "blocks": {}
+            },
+            "accordion_item_jA7paB": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content here.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_item_kY7qxN",
+            "accordion_item_jA7paB"
+          ]
+        }
+      },
+      "block_order": [
+        "accordion_XhLe9d"
+      ],
+      "name": "t:names.accordion_section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-1",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": true,
+        "content_alignment": "items-center",
+        "section_height": "h-[100svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "blocks": {
+        "column_9HQ8ph": {
+          "type": "column",
+          "name": "t:names.column",
+          "settings": {
+            "width_control": 50,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_QNBR4E": {
+              "type": "image",
+              "name": "t:names.image",
+              "settings": {
+                "image": "shopify://shop_images/sneakers.webp",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_QNBR4E"
+          ]
+        },
+        "column_GX8zwh": {
+          "type": "column",
+          "name": "t:names.column",
+          "settings": {
+            "width_control": 50,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "text_Kxk4cW": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-lg",
+                "paragraph_style": "h3",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_nUDf7t": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": true,
+                "field_inline_richtext": "Lorem ipsum",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_Kxk4cW",
+            "text_nUDf7t"
+          ]
+        }
+      },
+      "block_order": [
+        "column_9HQ8ph",
+        "column_GX8zwh"
+      ],
+      "name": "t:names.image_with_text_section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-1",
+        "layout": "horizontal",
+        "gap": "gap-0",
+        "background_image": true,
+        "content_alignment": "items-center",
+        "section_height": "h-[100svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    {
+      "blocks": {
+        "video_KyQWRT": {
+          "type": "video",
+          "name": "t:names.video",
+          "settings": {
+            "source": "uploaded",
+            "video_autoplay": false,
+            "video_loop": true,
+            "alt": "",
+            "custom_width": 100,
+            "custom_width_mobile": 100,
+            "aspect_ratio": "auto"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "video_KyQWRT"
+      ],
+      "name": "t:names.video_section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    }
+  ]
+}
+{% endschema %}
+{%- liquid
+  assign padding_top_mobile = section.settings.section_padding_top_mobile
+  assign padding_bottom_mobile = section.settings.section_padding_bottom_mobile
+  assign padding_top_desktop = section.settings.section_padding_top
+  assign padding_bottom_desktop = section.settings.section_padding_bottom
+
+  assign classes = section.settings.gap
+  if section.settings.layout == 'horizontal'
+    assign classes = classes | append: ' items-center md:flex-row'
+  endif
+-%}
+<style>
+  .background-image-{{ section.id }} {
+    background-image:url('{{ section.settings.bg_image | image_url }}');
+  }
+  {% comment %} Mobile Device Image {% endcomment %}
+  {% if section.settings.bg_image_mobile != blank %}
+  @media (max-width: 768px) {
+    .background-image-{{ section.id }} {
+      background-image:url('{{ section.settings.bg_image_mobile | image_url }}');
+    }
+  }
+  {% endif %}
+  .background-image-{{ section.id }} .media-overlay{
+    background-color: {{ section.settings.overlay_color }};
+    opacity: 0.5;
+  }
+  .background-image-{{ section.id }} .media-gradient{
+    background: linear-gradient(
+      {{ section.settings.gradient_direction }},
+      {{ section.settings.overlay_color }} 0%,
+      transparent 100%
+    );
+  }
+  #shopify-section-{{ section.id }} {
+    --padding-top-desktop: {{ padding_top_desktop }}px;
+    --padding-bottom-desktop: {{ padding_bottom_desktop }}px;
+    --padding-top-mobile: {{ padding_top_mobile }}px;
+    --padding-bottom-mobile: {{ padding_bottom_mobile }}px;
+  }
+
+  #shopify-section-{{ section.id }} .section-wrapper {
+    padding-top: var(--padding-top-desktop);
+    padding-bottom: var(--padding-bottom-desktop);
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .section-wrapper {
+      padding-top: var(--padding-top-mobile);
+      padding-bottom: var(--padding-bottom-mobile);
+    }
+  }
+  .section-wrapper {
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
+  }
+</style>
+<div class="relative section-wrapper color-{{ section.settings.color_scheme }} {% if section.settings.background_image and section.settings.bg_image != blank %}  {{ section.settings.section_height }} background-image-{{ section.id }} flex {{ section.settings.content_alignment }}  {% endif %} bg-center bg-cover bg-no-repeat">
+  {% if section.settings.bg_image != blank and section.settings.toggle_overlay %}
+    <div
+      class="absolute inset-0 {% if  section.settings.overlay_style == 'solid' %}media-overlay {% elsif section.settings.overlay_style == 'gradient' %}media-gradient{% endif %}"
+    ></div>
+  {% endif %}
+  <div class="container relative flex flex-wrap flex-col w-full {{ classes }}">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+

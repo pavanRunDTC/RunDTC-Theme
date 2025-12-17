@@ -1,0 +1,161 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:group.footer",
+  "sections": {
+    "footer_gcG4iJ": {
+      "type": "footer",
+      "blocks": {
+        "logo_Vq7Wpi": {
+          "type": "logo",
+          "name": "t:block.logo.preset.logo",
+          "settings": {
+            "footer_logo": "{{ shop.brand.logo }}",
+            "logo_link": "/",
+            "logo_height": 80,
+            "logo_position": "justify-start"
+          },
+          "blocks": {
+            "text_whU9Vx": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": true,
+                "field_inline_richtext": "Collaborating with industry leaders, we deliver tailored solutions exceeding client expectations.",
+                "field_richtext": "<p>{{ shop.brand.short_description }}</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "social_k73TWY": {
+              "type": "social",
+              "name": "t:names.social",
+              "settings": {},
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_whU9Vx",
+            "social_k73TWY"
+          ]
+        },
+        "group_navigation_QhAcw8": {
+          "type": "_group-navigation",
+          "name": "t:block.group_navigation.preset.navigation_group",
+          "settings": {
+            "columns": 3,
+            "columns_mobile": 2,
+            "group_title": ""
+          },
+          "blocks": {
+            "navigation_menu_erBkLC": {
+              "type": "navigation-menu",
+              "settings": {
+                "nav_heading": "Quick Links",
+                "menu": "main-menu"
+              },
+              "blocks": {}
+            },
+            "navigation_menu_yY7Dba": {
+              "type": "navigation-menu",
+              "name": "t:block.navigation_menu.preset.navigation_menu",
+              "settings": {
+                "nav_heading": "Information Links",
+                "menu": "footer"
+              },
+              "blocks": {}
+            },
+            "navigation_menu_HaQqjd": {
+              "type": "navigation-menu",
+              "name": "t:block.navigation_menu.preset.navigation_menu",
+              "settings": {
+                "nav_heading": "Legal Pages",
+                "menu": "policy-pages"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "navigation_menu_erBkLC",
+            "navigation_menu_yY7Dba",
+            "navigation_menu_HaQqjd"
+          ]
+        },
+        "newsletter_tFVUPc": {
+          "type": "newsletter",
+          "name": "t:block.newsletter.preset.newsletter",
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "logo_Vq7Wpi",
+        "group_navigation_QhAcw8",
+        "newsletter_tFVUPc"
+      ],
+      "name": "t:section.footer.preset.footer",
+      "settings": {
+        "color_scheme": "scheme-c5d404f3-cedf-4a73-bf12-18d71df63018",
+        "columns": 4
+      }
+    },
+    "section_xbYWVe": {
+      "type": "section",
+      "blocks": {
+        "text_qRBVci": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "© 2025 RunDTC. All rights reserved",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "center",
+            "display": "block",
+            "element": "p"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_qRBVci"
+      ],
+      "name": "Footer CopyRights",
+      "settings": {
+        "section_padding_top": 30,
+        "section_padding_bottom": 30,
+        "section_padding_top_mobile": 15,
+        "section_padding_bottom_mobile": 15,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    }
+  },
+  "order": [
+    "footer_gcG4iJ",
+    "section_xbYWVe"
+  ]
+}

@@ -1,0 +1,37 @@
+{% schema %}
+{
+  "name": "t:names.product_description",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:settings.label",
+      "default": "t:text_defaults.description"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "t:names.product_description",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+{% if product.description != blank %}
+  <div class="flex flex-col gap-4 color-{{ block.settings.color_scheme }}">
+    {% if block.settings.label != blank %}
+      <h2 class="h4">{{ block.settings.label }}</h2>
+    {% endif %}
+    <div class="prose block prose-base">
+      {{ product.description }}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,240 @@
+{% comment %}
+  Site header with logo and cart icon.
+  Cart icon displays live item count and opens mini cart on click.
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "t:names.header",
+  "tag": "section",
+  "class": "header-section",
+  "limit": 1,
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme"
+    },
+    {
+      "id": "show_search",
+      "type": "checkbox",
+      "label": "t:settings.show_search",
+      "default": true
+    },
+    {
+      "id": "show_account",
+      "type": "checkbox",
+      "label": "t:settings.show_account",
+      "default": true
+    },
+    {
+      "id": "show_cart",
+      "type": "checkbox",
+      "label": "t:settings.show_cart",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "megamenu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.header"
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign show_search = section.settings.show_search
+  assign show_account = section.settings.show_account
+  assign show_cart = section.settings.show_cart
+
+  # homepage only we are using transparent header
+  if template != 'index'
+    assign header_style = 'solid'
+  endif
+%}
+<header class="section-wrapper color-{{ section.settings.color_scheme }} max-w-none w-full border-b border-solid border-gray-300 relative">
+  <div
+    class="container flex items-stretch justify-between z-50"
+    x-load="eager"
+    x-load-src="{{ 'build.header.min.js' | asset_url }}"
+    x-data="header({ headerStyle: '{{ header_style | json | escape }}' })"
+    x-bind="directives.self"
+    data-ajax-cart-section
+  >
+    <div
+      class="order-first logo-container relative py-4"
+    >
+      {% if settings.logo %}
+        {% render 'utility-image', image: settings.logo, height: settings.logo_height, url: routes.root_url %}
+      {% else %}
+        <h1 class="h1">{{ shop.name }}</h1>
+      {% endif %}
+    </div>
+
+    {%- comment -%} Utility Icons Section {%- endcomment -%}
+    <div class="order-last utility-icons flex flex-row gap-4 items-center justify-end">
+      {%- comment -%} Search Icon {%- endcomment -%}
+      {%- if show_search -%}
+        <style>
+          [x-cloak] { display: none !important; }
+        </style>
+        <div x-data="{ open: false, q: '' }" x-cloak class="flex items-center gap-2">
+          <!-- Search Icon / Close Icon Toggle -->
+          <button
+            @pointerup="open = !open; if(open) $nextTick(() => $refs.searchInput.focus())"
+            class="cursor-pointer search-toggle hover:opacity-70"
+            type="button"
+          >
+            <div class="w-6 h-6 relative">
+              <!-- Search Icon (shown when closed) -->
+              <div x-show="!open" class="absolute inset-0 flex items-center justify-center">
+                {% render 'utility-icon', name: 'search', class: 'size-6' %}
+              </div>
+
+              <!-- Close Icon (shown when open) -->
+              <div x-show="open" class="absolute inset-0 flex items-center justify-center">
+                {% render 'utility-icon', name: 'close', class: 'size-6' %}
+              </div>
+            </div>
+          </button>
+
+          <!-- Search Input -->
+          <div x-show="open"
+            x-transition
+            class="absolute top-[100%] w-full left-0 right-0 transition-all duration-300 transform p-6 px-0 bg-[#f7f7f7] border border-gray-300 z-40"
+          >
+          <div class="container">
+            <form
+              id="header-search-form"
+              action="/search"
+              method="get"
+              class="flex items-center gap-2"
+            >
+              <div class="relative w-full">
+                <label class="input w-full">
+                  <span class="text-gray-500">
+                    {% render 'utility-icon', name: 'search', class: 'size-5' %}
+                  </span>
+                  <input type="search"
+                    x-ref="searchInput"
+                    x-model="q"
+                    name="q"
+                    placeholder="Search products..."
+                    class="text-base outline-none text-gray-500 px-1"
+                    required
+                    autofocus
+                  />
+                </label>
+                <button
+                  type="button"
+                  x-show="q.length"
+                  @click="q=''"
+                  @keydown.enter.stop
+                  class="absolute right-3 top-1/2 -translate-y-1/2 transition cursor-pointer text-gray-500 z-40"
+                >
+                  {% render 'utility-icon', name: 'close', class: 'size-4' %}
+                </button>
+              </div>
+            </form>
+          </div>
+          </div>
+
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Account Section {%- endcomment -%}
+      {%- if show_account -%}
+        <div class="account-section flex md:flex-row gap-1 items-center justify-center">
+          <a
+            href="{{ routes.account_url }}"
+            class="account-link transition-colors hover:opacity-70"
+            aria-label="{{ 'customer.account.title' | t }}"
+          >
+            {% render 'utility-icon', name: 'account', class: 'size-6' %}
+          </a>
+          {%- if customer -%}
+            <div class="account-greeting p1 font-medium hidden sm:block">
+               <a href="{{ routes.account_url }}">
+              {{ 'customer.account.welcome' | t: first_name: customer.first_name }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Cart Icon {%- endcomment -%}
+      {%- if show_cart -%}
+        <!-- Cart Icon -->
+        <button
+          type="button"
+          @click="$dispatch('cart-open')"
+          class="relative p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
+          aria-label="{{ 'cart.general.open_cart' | t }}"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+
+          <!-- Cart Count Badge -->
+          <span
+            class="absolute -top-1 -right-1 bg-black text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+            data-ajax-cart-bind="item_count"
+          >
+            {{ cart.item_count }}
+          </span>
+        </button>
+      {%- endif -%}
+
+      {%- comment -%} Hamburger/Close Icon Toggle {%- endcomment -%}
+      <button
+        class="mobile-menu-toggle md:hidden transition-colors hover:opacity-70"
+        type="button"
+        aria-label="{{ 'sections.header.menu' | t | escape }}"
+        aria-controls="main-navigation"
+        x-bind="directives.mobileMenuToggle"
+      >
+        <span x-show="!mobileMenuOpen">
+          {% render 'utility-icon', name: 'menu', class: 'size-6' %}
+        </span>
+        <span x-show="mobileMenuOpen" x-cloak>
+          {% render 'utility-icon', name: 'close', class: 'size-6' %}
+        </span>
+      </button>
+    </div>
+
+    <div id="main-navigation" class="main-navigation-container">
+      <div
+        class="
+          navigation-list
+          hidden md:block
+          md:static md:border-0 md:z-auto
+          absolute top-full left-0 w-full border-t z-40 overflow-auto md:min-h-auto h-full
+        "
+        x-bind="directives.mobileMenu"
+        x-cloak
+      >
+        <div
+          class="min-h-[inherit] md:min-h-auto flex flex-col h-full"
+        >
+          <div class="md:static mobile-top flex-1 overflow-y-auto md:flex-none md:overflow-visible h-full">
+            <div class="flex flex-col md:flex-row md:gap-0 md:items-center md:justify-center h-full">
+              {%- content_for 'blocks' -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

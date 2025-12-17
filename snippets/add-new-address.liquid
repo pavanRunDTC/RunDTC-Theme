@@ -1,0 +1,154 @@
+<div id="AddAddress" x-show="show" class="mx-auto max-w-md">
+  <h5 id="AddressNewHeading" class="my-6">{{ 'customer.addresses.add_new' | t }}</h5>
+  {%- form 'customer_address',
+    customer.new_address,
+    aria-labelledBy: 'AddressNewHeading',
+    class: 'flex flex-wrap items-center gap-6'
+  -%}
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressFirstNameNew"
+        name="address[first_name]"
+        value="{{ form.first_name }}"
+        autocomplete="given-name"
+        placeholder="{{ 'customer.addresses.first_name' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressLastNameNew"
+        name="address[last_name]"
+        value="{{ form.last_name }}"
+        autocomplete="family-name"
+        placeholder="{{ 'customer.addresses.last_name' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressCompanyNew"
+        name="address[company]"
+        value="{{ form.company }}"
+        autocomplete="organization"
+        placeholder="{{ 'customer.addresses.company' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressAddress1New"
+        name="address[address1]"
+        value="{{ form.address1 }}"
+        autocomplete="address-line1"
+        placeholder="{{ 'customer.addresses.address1' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressAddress2New"
+        name="address[address2]"
+        value="{{ form.address2 }}"
+        autocomplete="address-line2"
+        placeholder="{{ 'customer.addresses.address2' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressCityNew"
+        name="address[city]"
+        value="{{ form.city }}"
+        autocomplete="address-level2"
+        placeholder="{{ 'customer.addresses.city' | t }}"
+      >
+    </div>
+    <div class="country-select field w-full text-left">
+      <label class="font-semibold" for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+      <div class="select w-full">
+        <select
+          class="w-full input"
+          x-ref="address_country"
+          id="AddressCountryNew"
+          name="address[country]"
+          data-default="{{ form.country }}"
+          autocomplete="country"
+          @change="province = JSON.parse($event.target.selectedOptions[0].dataset.provinces); address.country = $event.target.selectedOptions[0].text;"
+        >
+          {{ all_country_option_tags }}
+        </select>
+        <span class="svg-wrapper">
+          {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+        </span>
+      </div>
+    </div>
+    <div id="AddressProvinceContainerNew" x-show="province.length > 0" class="field w-full text-left">
+      <label class="font-semibold" for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+      <div class="select w-full">
+        <select
+          class="w-full input"
+          id="AddressProvinceNew"
+          name="address[province]"
+          data-default="{{ form.province }}"
+          autocomplete="address-level1"
+        >
+          <template x-for="item in province">
+            <option :value="item[0]" x-text="item[0]"></option>
+          </template>
+        </select>
+        <span class="svg-wrapper">
+          {% render 'utility-icon', name: 'arrow_top', class: 'size-4' %}
+        </span>
+      </div>
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+      <input
+        class="w-full input"
+        type="text"
+        id="AddressZipNew"
+        name="address[zip]"
+        value="{{ form.zip }}"
+        autocapitalize="characters"
+        autocomplete="postal-code"
+        placeholder="{{ 'customer.addresses.zip' | t }}"
+      >
+    </div>
+    <div class="field w-full text-left">
+      <label class="font-semibold" for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+      <input
+        class="w-full input"
+        type="tel"
+        id="AddressPhoneNew"
+        name="address[phone]"
+        value="{{ form.phone }}"
+        autocomplete="tel"
+        placeholder="{{ 'customer.addresses.phone' | t }}"
+      >
+    </div>
+    <div class="flex items-center w-full gap-2">
+      {{ form.set_as_default_checkbox | replace: '<input', '<input class="customer_default_checkbox"' }}
+      <label for="address_default_address_new" class="mt-0">{{ 'customer.addresses.set_default' | t }}</label>
+    </div>
+    <div class="flex w-full gap-4 justify-center">
+      <button class="btn btn-primary">{{ 'customer.addresses.add' | t }}</button>
+      <button class="btn btn-primary" @click.prevent="show = false" type="reset">
+        {{ 'customer.addresses.cancel' | t }}
+      </button>
+    </div>
+  {%- endform -%}
+</div>

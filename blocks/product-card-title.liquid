@@ -1,0 +1,18 @@
+{% comment %}
+  Renders a product card title block
+{% endcomment %}
+{% schema %}
+{
+  "name": "t:names.product_card_title",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.product_card_title",
+      "category": "t:categories.collection"
+    }
+  ]
+}
+{% endschema %}
+<template class="title" x-if="typeof product === 'undefined'"><p class="text-sm text-left font-bold mb-2" > {{ closest.product.title  }}</p></template>
+<template class="title" x-if="typeof product !== 'undefined'"><p class="text-sm text-left font-bold mb-2" x-text="product?.title"></p></template>

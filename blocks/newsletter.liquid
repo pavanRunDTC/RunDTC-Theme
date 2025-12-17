@@ -1,0 +1,85 @@
+{% schema %}
+{
+  "name": "t:names.newsletter",
+  "tag": null,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.newsletter",
+      "category": "t:categories.forms"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="newsletter-section w-full h-auto">
+  {% if block.blocks.size > 0 %}
+    {% content_for 'blocks' %}
+  {% endif %}
+
+  {%- form 'customer', class: 'email-signup__form spacing-style' %}
+    <div
+      class="email-signup__input-group flex items-center gap-2"
+    >
+      <input
+        id="EmailInput-{{ block.id }}"
+        class="input input-sm"
+        type="email"
+        name="contact[email]"
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        placeholder="{{ 'blocks.email_signup.placeholder' | t }}"
+        required
+        {% if form.errors %}
+          autofocus
+          aria-invalid="true"
+          aria-describedby="Email-signup__message-error-{{ block.id }}"
+        {% elsif form.posted_successfully? %}
+          aria-describedby="Email-signup__message-success-{{ block.id }}"
+        {% endif %}
+      >
+      <button
+        class="btn btn-primary btn-sm"
+        aria-label="{{ 'actions.sign_up' | t }}"
+      >
+        {{ 'blocks.email_signup.submit' | t }}
+      </button>
+    </div>
+
+    {%- if form.errors -%}
+      <div
+        id="Email-signup__message-error-{{ block.id }}"
+        class="email-signup__message email-signup__message--error"
+        tabindex="-1"
+      >
+        {{- form.errors.translated_fields.email | capitalize }}
+        {{ form.errors.messages.email -}}
+      </div>
+    {%- endif -%}
+
+    {%- if form.posted_successfully? -%}
+     <div
+        x-data="{ showSuccess: {{ form.posted_successfully? | json }} }"
+        x-init="if (showSuccess) setTimeout(() => showSuccess = false, 1000)"
+      >
+        <template x-if="showSuccess">
+          <div
+            id="Email-signup__message-success-{{ block.id }}"
+            class="email-signup__message email-signup__message--success transition-opacity duration-500"
+            x-show="showSuccess"
+            x-transition.opacity
+            tabindex="-1"
+          >
+            <p class="email-signup__message-text">{{ 'blocks.email_signup.success' | t }}</p>
+          </div>
+        </template>
+      </div>
+    {%- endif -%}
+  {% endform %}
+</div>

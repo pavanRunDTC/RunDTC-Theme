@@ -1,0 +1,15 @@
+{% schema %}
+{
+  "name": "t:names.contact_form",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.contact_form",
+      "category": "t:categories.forms"
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'contact-form', settings: block.settings, block: block %}

@@ -1,0 +1,24 @@
+{% schema %}
+{
+  "name": "t:names.product_image",
+  "presets": [
+    {
+      "name": "t:names.product_image",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+<template x-if="typeof product === 'undefined'" x-cloak>
+  {%- render 'utility-image', image: closest.product.media[0], class: '', image_class: 'aspect-square mb-2' -%}
+</template>
+<template x-if="typeof product !== 'undefined'" x-cloak>
+  <figure id="id" class="mt-auto relative mb-2" x-cloak>
+    <template x-if="product?.image">
+      <img :src="product.image" :alt="product.title" width="auto" height="auto" loading="lazy" class="aspect-square">
+    </template>
+    <template x-if="!product?.image">
+      {%- render 'placeholder-image', type: 'product' -%}
+    </template>
+  </figure>
+</template>

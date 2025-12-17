@@ -1,0 +1,804 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section": {
+      "type": "_blocks",
+      "blocks": {
+        "typography_demo": {
+          "type": "design-library",
+          "name": "Typography Demo",
+          "settings": {},
+          "blocks": {}
+        },
+        "button_wrapper": {
+          "type": "button-wrapper",
+          "name": "Button Wrapper",
+          "settings": {},
+          "blocks": {
+            "button_djctDp": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-primary",
+                "button_type": "",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_LCHYPA": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-primary",
+                "button_type": "btn-soft",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_fzP9Az": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-primary",
+                "button_type": "btn-outline",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_MrrEBH": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-primary",
+                "button_type": "btn-dash",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_EdW4Hx": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Secondary Button",
+                "button_style": "btn-secondary",
+                "button_type": "",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_eRPGyE": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-secondary",
+                "button_type": "btn-soft",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_dTPAMB": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-secondary",
+                "button_type": "btn-outline",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            },
+            "button_Y9Pw9w": {
+              "type": "button",
+              "name": "t:block.button.preset.button",
+              "settings": {
+                "button_text": "Primary Button",
+                "button_style": "btn-secondary",
+                "button_type": "btn-dash",
+                "button_url": "#",
+                "button_target": "_self",
+                "button_alignment": "left",
+                "button_width": "normal"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "button_djctDp",
+            "button_LCHYPA",
+            "button_fzP9Az",
+            "button_MrrEBH",
+            "button_EdW4Hx",
+            "button_eRPGyE",
+            "button_dTPAMB",
+            "button_Y9Pw9w"
+          ]
+        },
+      },
+      "block_order": [
+        "typography_demo",
+        "button_wrapper",
+      ],
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-1",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_jDYRzG": {
+      "type": "section",
+      "blocks": {
+        "text_DCY3TH": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "<em>Input type with multiline diabled:</em>",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h1",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_9VAeX4": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H1",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h1",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_EGcbYf": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H2",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h2",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_m7QAHq": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H3",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h3",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_nGwAqe": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H4",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h4",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_DytYVd": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H5",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h5",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_NRELH8": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Heading H6",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "h6",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_gawxjY": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": false,
+            "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud <a href=\"#\" title=\"#\">exercitation ullamco laboris</a> nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_DCY3TH",
+        "text_9VAeX4",
+        "text_EGcbYf",
+        "text_m7QAHq",
+        "text_nGwAqe",
+        "text_DytYVd",
+        "text_NRELH8",
+        "text_gawxjY"
+      ],
+      "name": "t:section.section.preset.empty",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-f16b70f4-68de-4556-b3a9-3df6370d7ae8",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_iXrahc": {
+      "type": "section",
+      "blocks": {
+        "text_bDCjid": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Input type with multiline diabled",
+            "field_richtext": "<h1><em>Input type with multiline enabled:</em></h1>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        },
+        "text_MQwd9K": {
+          "type": "text",
+          "name": "t:block.text.preset.text",
+          "settings": {
+            "type": "input",
+            "is_multiline": true,
+            "field_inline_richtext": "Input type with multiline diabled",
+            "field_richtext": "<h1>Heading H1</h1><h2>Heading H2</h2><h3>Heading H3</h3><h4>Heading H4</h4><h5>Heading H5</h5><h6>Heading H6</h6><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
+            "base_font_size": "prose-base",
+            "paragraph_style": "base",
+            "text_alignment": "left",
+            "display": "block",
+            "element": "div"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_bDCjid",
+        "text_MQwd9K"
+      ],
+      "name": "t:section.section.preset.empty",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_GnxrNi": {
+      "type": "section",
+      "blocks": {
+        "column_AGJYgi": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_LRTcbi": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/model-in-neutral-colors-by-window.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_pERnX8": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Card Title as H4",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_daaXBJ": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_LRTcbi",
+            "text_pERnX8",
+            "text_daaXBJ"
+          ]
+        },
+        "column_cPKGz7": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_6zQanF": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/model-in-neutral-colors-by-window.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_GyTUYx": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Card Title as H4",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_7CKcfW": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_6zQanF",
+            "text_GyTUYx",
+            "text_7CKcfW"
+          ]
+        },
+        "column_edw6aa": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_nQMGdH": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/model-in-neutral-colors-by-window.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_tAqP4b": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Card Title as H4",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_wzPMKq": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_nQMGdH",
+            "text_tAqP4b",
+            "text_wzPMKq"
+          ]
+        },
+        "column_CWQjRE": {
+          "type": "column",
+          "name": "Column",
+          "settings": {
+            "width_control": 25,
+            "gap": "gap-4"
+          },
+          "blocks": {
+            "image_bFairy": {
+              "type": "image",
+              "name": "t:block.image.preset.image",
+              "settings": {
+                "image": "shopify://shop_images/model-in-neutral-colors-by-window.jpg",
+                "image_url": "",
+                "image_alt": "",
+                "image_alignment": "left",
+                "image_width": "auto",
+                "aspect_ratio": "natural",
+                "crop_position": "center"
+              },
+              "blocks": {}
+            },
+            "text_YXze9C": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Card Title as H4",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "h4",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            },
+            "text_nYUEHC": {
+              "type": "text",
+              "name": "t:block.text.preset.text",
+              "settings": {
+                "type": "input",
+                "is_multiline": false,
+                "field_inline_richtext": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "field_richtext": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>",
+                "base_font_size": "prose-base",
+                "paragraph_style": "base",
+                "text_alignment": "left",
+                "display": "block",
+                "element": "div"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "image_bFairy",
+            "text_YXze9C",
+            "text_nYUEHC"
+          ]
+        }
+      },
+      "block_order": [
+        "column_AGJYgi",
+        "column_cPKGz7",
+        "column_edw6aa",
+        "column_CWQjRE"
+      ],
+      "name": "t:section.section.preset.empty",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-dc2a30cb-a0a2-4ef2-984b-261e4bb4d0af",
+        "layout": "horizontal",
+        "gap": "gap-0",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_fmzbyM": {
+      "type": "section",
+      "blocks": {
+        "video_BXbkkz": {
+          "type": "video",
+          "name": "t:names.video",
+          "settings": {
+            "source": "uploaded",
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": true,
+            "alt": "",
+            "custom_width": 100,
+            "custom_width_mobile": 100,
+            "aspect_ratio": "auto"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "video_BXbkkz"
+      ],
+      "name": "t:names.section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_UWh4Ma": {
+      "type": "section",
+      "blocks": {
+        "custom_liquid_f8rYA7": {
+          "type": "custom-liquid",
+          "name": "t:names.custom_liquid",
+          "settings": {
+            "custom_liquid": "<h2>The heading is coming through liquid snippet: {{ shop.name }}</h2>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "custom_liquid_f8rYA7"
+      ],
+      "name": "t:names.section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-f16b70f4-68de-4556-b3a9-3df6370d7ae8",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": false,
+        "content_alignment": "items-center",
+        "section_height": "h-[65svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    },
+    "section_X6wNN6": {
+      "type": "section",
+      "blocks": {
+        "accordion_gHj93i": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "title": "Accordion heading",
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_top_mobile": 40,
+            "padding_bottom_mobile": 40,
+            "open_first_by_default": false
+          },
+          "blocks": {
+            "accordion_item_exXzLX": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content <a href=\"#\" title=\"#\">here</a>.</p><ul><li>Lorem Ipsum Bullet Point 1</li><li>Lorem Ipsum Bullet Point 2</li></ul><ol><li>Lorem Ipsum Number Point 1</li><li>Lorem Ipsum Number Point 2</li></ol>"
+              },
+              "blocks": {}
+            },
+            "accordion_item_DQCifb": {
+              "type": "accordion-item",
+              "settings": {
+                "question": "Accordion heading",
+                "answer": "<p>This is the answer to the frequently asked question. You can include formatted text, links, and other rich content here.</p>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "accordion_item_exXzLX",
+            "accordion_item_DQCifb"
+          ]
+        }
+      },
+      "block_order": [
+        "accordion_gHj93i"
+      ],
+      "name": "t:names.accordion_section",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 40,
+        "section_padding_bottom_mobile": 40,
+        "color_scheme": "scheme-1",
+        "layout": "vertical",
+        "gap": "gap-4",
+        "background_image": true,
+        "content_alignment": "items-center",
+        "section_height": "h-[100svh]",
+        "toggle_overlay": false,
+        "overlay_style": "solid",
+        "overlay_color": "#000000",
+        "gradient_direction": "to bottom"
+      }
+    }
+  },
+  "order": [
+    "section",
+    "section_jDYRzG",
+    "section_iXrahc",
+    "section_GnxrNi",
+    "section_fmzbyM",
+    "section_UWh4Ma",
+    "section_X6wNN6"
+  ]
+}

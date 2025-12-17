@@ -1,0 +1,15 @@
+{% doc %}
+  Layout > Body > Bottom
+
+  Renders content that should be placed at the bottom of the body section in all layouts.
+  It should include all non-render-blocking scripts and assets.
+{% enddoc %}
+
+<script type="module" src="{{ 'build.init.min.js' | asset_url }}"></script>
+
+{% # This is a temporary fixture for the purposes of Alpine.js initialization %}
+<div
+  x-load
+  x-load-src="{{ 'build.sample.min.js' | asset_url }}"
+  x-data="sample({ open: true })"
+></div>

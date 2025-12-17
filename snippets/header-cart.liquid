@@ -1,0 +1,20 @@
+{% doc %}
+  Renders the cart icon with item count display.
+
+  @example
+  {% render 'header-cart', cart: cart %}
+{% enddoc %}
+<a
+  href="{{ routes.cart_url }}"
+  class="relative"
+  aria-label="{{ 'sections.cart.title' | t }}"
+>
+  <div class="relative rounded-[10px] px-1.5 flex items-center justify-center"
+  >
+    {% render 'utility-icon', name: 'bag', class: 'size-6' %}
+    <span
+      class="cart-count font-bold ml-1"
+    >
+    </span>
+  </div>
+</a>

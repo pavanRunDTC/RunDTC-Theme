@@ -1,0 +1,153 @@
+<div x-data="{ showMobileFilters: false }" class="filters-wrapper w-auto md:w-full relative md:flex-1 {{ class }}">
+  <div class="flex justify-start md:hidden mb-4">
+    <span
+      @click="showMobileFilters = true"
+      class="flex items-center pb-1  text-sm transition cursor-pointer"
+    >
+      <span class="mr-0 font-bold">{{ 'general.filter.heading' | t }}</span>
+      {% render 'utility-icon', name: 'arrow_top', class: 'h-5 w-5 transform transition-transform duration-200' %}
+    </span>
+  </div>
+
+  <div
+    class="hidden md:flex filters space-y-4 {% if filter_position == 'vertical' %}md:flex-col md:w-auto flex-row w-full {% else %}flex flex-wrap gap-x-6 gap-y-2{% endif %}"
+  >
+    {% if filter_position == 'vertical' %}
+      {%- render 'selected-filter', filter_position: filter_position -%}
+    {% endif %}
+    <template x-for="filter in availableFilter" :key="filter.label">
+      <div
+        class="filter-group relative max-w-full {% if filter_position == 'vertical' %} first:pt-0 mb-6 last:pb-0 pb-6 last:border-b-0 border-b-1 border-gray-200 {% endif %}"
+        x-data="{ open: false, filter_position: '{{ filter_position }}' }"
+      >
+        <!-- Label / Toggle -->
+        <span @click="filter_position === 'horizontal' ? open = !open : null" class="cursor-pointer">
+          <span
+            class="font-semibold text-sm cursor-pointer"
+            x-text="filter.label"
+          ></span>
+          {% render 'utility-icon', name: 'arrow_top', class: 'h-5 w-5 transform transition-transform duration-200 hidden', attr: ':class="[filter_position === `vertical` ? `hidden` : `inline-block`, open ? `rotate-180` : `rotate-0`]"'%}
+        </span>
+
+        <!-- Container for filter values -->
+        <div
+          x-show="filter_position === 'horizontal' ? open : true"
+          x-transition
+          :class="filter_position === 'horizontal' ? 'md:absolute md:bg-white md:border md:shadow-lg rounded md:mt-1 md:w-56 md:p-3 md:z-50' : ''"
+          @click.outside="filter_position === 'horizontal' ? open = false : null"
+        >
+          <!-- PRICE_RANGE -->
+          <template x-if="filter.type === 'PRICE_RANGE'">
+            <div class="price-range flex items-center space-x-2 mb-2">
+              <input
+                type="number"
+                class="border px-2 py-1 w-20 rounded text-sm"
+                :min="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                :max="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                x-model.number="selectedFilters['PriceMin']"
+                :placeholder="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                @change.debounce.500ms="if (!selectedFilters.PriceMin) selectedFilters.PriceMin = parseFloat(JSON.parse(filter.values[0].input).price.min); validatePriceRange(filter, 'max');"
+              >
+              <span>-</span>
+              <input
+                type="number"
+                class="border px-2 py-1 w-20 rounded text-sm"
+                :min="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                :max="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                x-model.number="selectedFilters['PriceMax']"
+                :placeholder="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                @change.debounce.500ms="if (!selectedFilters.PriceMax) selectedFilters.PriceMax = parseFloat(JSON.parse(filter.values[0].input).price.max); validatePriceRange(filter, 'max');"
+              >
+            </div>
+          </template>
+
+          <!-- LIST type -->
+          <template x-if="filter.type === 'LIST'">
+            <template x-for="value in filter.values" :key="value.label">
+              <label
+                class="flex items-center space-x-2 cursor-pointer p-1 rounded"
+                :class="filter_position === 'vertical' ? 'mb-0' : 'mb-1 last:mb-0'"
+              >
+                <input
+                  type="checkbox"
+                  :value="value.label"
+                  @change="toggleFilter(filter.label, value.label, value.input, value.id)"
+                  :checked="selectedFilters[filter.label] && selectedFilters[filter.label].some(v => v.label === value.label)"
+                  class="accent-blue-500"
+                >
+                <span x-text="value.label" class="truncate"></span>
+              </label>
+            </template>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <!-- MOBILE FILTERS - SLIDE DRAWER -->
+  <div x-show="showMobileFilters" class="fixed inset-0 z-50 flex md:hidden" x-cloak>
+    <div class="absolute inset-0 bg-black/40 transition-opacity" @click="showMobileFilters = false"></div>
+
+    <div class="ml-auto bg-white w-4/5 max-w-sm h-full shadow-xl p-5 overflow-y-auto relative">
+      <div class="flex justify-between items-center mb-2">
+        <p class="text-lg font-semibold">{{ 'general.filter.heading' | t }}</p>
+        <button @click="showMobileFilters = false" class="text-gray-500 hover:text-gray-800 cursor-pointer">
+          {% render 'utility-icon', name: 'close', class: 'h-6 w-6 text-gray-600 hover:text-red-600'%}
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <template x-for="filter in availableFilter" :key="filter.label">
+          <div class="p-0 first:pt-0 pt-6 mb-0 last:pb-0 pb-6 last:border-b-0 border-b-1 border-gray-200 ">
+            <p
+              class="font-semibold text-sm cursor-pointer"
+              x-text="filter.label"
+            ></p>
+
+            <!-- PRICE_RANGE -->
+            <template x-if="filter.type === 'PRICE_RANGE'">
+              <div class="price-range flex items-center space-x-2 mb-2">
+                <input
+                  type="number"
+                  class="border px-2 py-1 w-20 rounded text-sm"
+                  :min="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                  :max="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                  x-model.number="selectedFilters['PriceMin']"
+                  :placeholder="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                  @change.debounce.500ms="if (!selectedFilters.PriceMin) selectedFilters.PriceMin = parseFloat(JSON.parse(filter.values[0].input).price.min); validatePriceRange(filter, 'max');"
+                >
+                <span>-</span>
+                <input
+                  type="number"
+                  class="border px-2 py-1 w-20 rounded text-sm"
+                  :min="parseFloat(JSON.parse(filter.values[0].input).price.min)"
+                  :max="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                  x-model.number="selectedFilters['PriceMax']"
+                  :placeholder="parseFloat(JSON.parse(filter.values[0].input).price.max)"
+                  @change.debounce.500ms="if (!selectedFilters.PriceMax) selectedFilters.PriceMax = parseFloat(JSON.parse(filter.values[0].input).price.max); validatePriceRange(filter, 'max');"
+                >
+              </div>
+            </template>
+            <template x-if="filter.type === 'LIST'">
+              <div class="flex flex-col space-y-1">
+                <template x-for="value in filter.values" :key="value.label">
+                  <label class="flex items-center space-x-2 cursor-pointer p-1 rounded">
+                    <input
+                      type="checkbox"
+                      :value="value.label"
+                      @change="toggleFilter(filter.label, value.label, value.input, value.id)"
+                      :checked="selectedFilters[filter.label] && selectedFilters[filter.label].some(v => v.label === value.label)"
+                      class="accent-blue-500"
+                    >
+                    <span x-text="value.label" class="truncate"></span>
+                  </label>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+        {%- render 'selected-filter', filter_position: filter_position -%}
+      </div>
+    </div>
+  </div>
+</div>

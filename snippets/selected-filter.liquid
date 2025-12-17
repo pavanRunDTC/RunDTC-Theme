@@ -1,0 +1,68 @@
+<div class="{{ class }} {% if filter_position == 'horizontal' %}flex flex-wrap gap-2 mt-3{% endif %}"
+x-cloak
+x-show ="Object.keys(selectedFilters).length > 0">
+<div
+  class="selected_filters flex flex-wrap {% if filter_position == 'vertical' %}mt-2{% endif %} gap-2"
+>
+  <!-- Loop over all filter categories except PriceMin and PriceMax -->
+  <template
+    x-for="[label, values] in Object.entries(selectedFilters).filter(([key]) => key !== 'PriceMin' && key !== 'PriceMax')"
+    :key="label"
+  >
+    <template x-for="(f, index) in values" :key="f.id">
+      <span
+        x-data="{ show: true }"
+        x-show="show"
+        x-transition:enter="transition transform ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition transform ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm cursor-default select-none justify-between btn btn-soft"
+      >
+        <!-- Filter Label -->
+        <span class="truncate" x-text="f.label"></span>
+
+        <!-- Remove Button -->
+        <button
+          type="button"
+          class="flex items-center justify-center p-1 bg-transparent border-0 hover:bg-transparent focus:outline-none btn btn-soft"
+          @click.stop="show = false; $nextTick(() => removeSingleFilter(label, f))"
+        >
+        {% render 'utility-icon', name: 'close', class: 'h-3 w-3 hover:text-red-600' %}
+        </button>
+      </span>
+    </template>
+  </template>
+
+  <!-- Price Range Tag -->
+  <template x-if="selectedFilters.PriceMin !== undefined && selectedFilters.PriceMax !== undefined">
+    <span
+      class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm cursor-default hover:bg-gray-300 select-none btn"
+    >
+      <span x-text="`Price: $${selectedFilters.PriceMin} - $${selectedFilters.PriceMax}`"></span>
+      <button
+        type="button"
+        class="flex items-center justify-center p-1 bg-transparent border-0 hover:bg-transparent focus:outline-none btn"
+        @click="removePriceFilter()"
+      >
+      {% render 'utility-icon', name: 'close', class: 'h-3 w-3 hover:text-red-600' %}
+      </button>
+    </span>
+  </template>
+
+
+</div>
+<!-- Clear All Button -->
+  <div class="block {% if filter_position == 'vertical' %} mt-2{% endif %}">
+    <button
+      type="button"
+      class="btn btn-primary inline-flex w-full min-w-[100px]"
+      x-show="Object.keys(selectedFilters).length > 0"
+      @click="clearAllFilters()"
+    >
+      {{ 'general.btnTxt.clearAll' | t }}
+    </button>
+  </div>
+</div>

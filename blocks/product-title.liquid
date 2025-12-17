@@ -1,0 +1,74 @@
+{% schema %}
+{
+  "name": "t:names.product_title",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "options": [
+        { "value": "text-left", "label": "t:options.left" },
+        { "value": "text-center", "label": "t:options.center" },
+        { "value": "text-right", "label": "t:options.right" }
+      ],
+      "default": "text-left"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:settings.size",
+      "options": [
+        { "value": "h1", "label": "t:options.h1" },
+        { "value": "h2", "label": "t:options.h2" },
+        { "value": "h3", "label": "t:options.h3" },
+        { "value": "h4", "label": "t:options.h4" },
+        { "value": "h5", "label": "t:options.h5" },
+        { "value": "h6", "label": "t:options.h6" }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "t:settings.show_price",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare",
+      "label": "t:settings.show_compare_price",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_title",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign alignment = block.settings.alignment | default: 'text-left'
+
+  assign class_compare = 'text-sm line-through'
+  if block.settings.show_compare != true
+    assign class_compare = 'hidden'
+  endif
+%}
+
+<div class="product-title-price flex-wrap flex flex-row items-baseline justify-between gap-4 w-full">
+  <h1 class="{{ block.settings.size }} {{ alignment }}">
+    {{ product.title | escape }}
+  </h1>
+  {% if block.settings.show_price %}
+    {% render 'utility-price',
+      target: product,
+      class_wrapper: 'flex items-baseline gap-2',
+      class_price: 'p1 font-bold',
+      class_compare: class_compare
+    %}
+  {% endif %}
+</div>

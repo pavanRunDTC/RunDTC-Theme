@@ -1,0 +1,47 @@
+{% # theme-check-disable %}
+{%- unless settings.body_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.body_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
+{%- unless settings.heading_font.system? -%}
+  <link
+    rel="preload"
+    as="font"
+    href="{{ settings.heading_font | font_url }}"
+    type="font/woff2"
+    crossorigin
+    fetchpriority="low"
+  >
+{%- endunless -%}
+{% # theme-check-enable %}
+
+{% style %}
+  {{ settings.body_font | font_face: font_display: 'swap' }}
+  {{ settings.heading_font | font_face: font_display: 'swap' }}
+
+  :root {
+    --font-body: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+    --font-heading: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
+    --font-weight-body: {{ settings.body_font.weight }};
+    --font-weight-heading: {{ settings.heading_font.weight }};
+    --text-base: {{ settings.base_font_size }}px;
+    --h1_font_size: {{ settings.h1_font_size }}px;
+    --h2_font_size: {{ settings.h2_font_size }}px;
+    --h3_font_size: {{ settings.h3_font_size }}px;
+    --h4_font_size: {{ settings.h4_font_size }}px;
+    --h5_font_size: {{ settings.h5_font_size }}px;
+    --h6_font_size: {{ settings.h6_font_size }}px;
+    --h1_font_size_mobile: {{ settings.h1_font_size_mobile }}px;
+    --h2_font_size_mobile: {{ settings.h2_font_size_mobile }}px;
+    --h3_font_size_mobile: {{ settings.h3_font_size_mobile }}px;
+    --h4_font_size_mobile: {{ settings.h4_font_size_mobile }}px;
+    --h5_font_size_mobile: {{ settings.h5_font_size_mobile }}px;
+    --h6_font_size_mobile: {{ settings.h6_font_size_mobile }}px;
+  }
+{% endstyle %}

@@ -1,0 +1,16 @@
+<div class="flex mb-4 space-x-2 ml-2 sm:ml-auto filter-horizontal xs:hidden">
+  <button
+    class="btn btn-primary px-3 py-1 border rounded"
+    :class="gridMode === 'minimal' ? 'btn-secondary' : 'bg-white text-black'"
+    @click="gridMode = 'minimal'"
+  >
+    {%- render 'minimal-grid-icon' -%}
+  </button>
+  <button
+    class="btn btn-primary px-3 py-1 border rounded"
+    :class="gridMode === 'multi' ? 'btn-secondary' : 'bg-white text-black'"
+    @click="gridMode = 'multi'"
+  >
+    {%- render 'multi-grid-icon' -%}
+  </button>
+</div>
